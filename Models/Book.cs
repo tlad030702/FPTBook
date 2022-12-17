@@ -15,7 +15,9 @@ namespace FPTBook.Models
         public DateOnly? Publish { get; set; }
         public decimal Price { get; set; }
         public int Rate { get; set; }
-        public string Img { get; set; }
+        public string Img1 { get; set; }
+        public string Img2 { get; set; }
+        public string Img3 { get; set; }
         public Categories Categories { get; set; }
     }
 }
