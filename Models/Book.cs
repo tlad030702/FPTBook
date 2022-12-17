@@ -18,6 +18,8 @@ namespace FPTBook.Models
         public string Img1 { get; set; }
         public string Img2 { get; set; }
         public string Img3 { get; set; }
+        [MinLength(0)]
+        public int Quality { get; set; }
         public Categories Categories { get; set; }
     }
 }
