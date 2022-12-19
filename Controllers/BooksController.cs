@@ -23,42 +23,52 @@ namespace FPTBook.Controllers
         }
 
         //Upload File
-        private string UploadedFile(BookViewModel model)
+        private string UploadedFile1(BookViewModel model)
         {
-            string uniFileName = null;
+            string uniFileName1 = null;
             if(model.Img1 != null)
             {
                 string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "images");
-                uniFileName = Guid.NewGuid().ToString() + "_" + model.Img1.FileName;
-                string filePath = Path.Combine(uploadsFolder, uniFileName);
+                uniFileName1 = Guid.NewGuid().ToString() + "_" + model.Img1.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniFileName1);
                 using(var fileStream = new FileStream(filePath, FileMode.Create))
                 {
                     model.Img1.CopyTo(fileStream);
                 }
             }
+            return uniFileName1;
+        }
+
+        private string UploadedFile2(BookViewModel model)
+        {
+            string uniFileName2 = null;
             if (model.Img2 != null)
             {
                 string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "images");
-                uniFileName = Guid.NewGuid().ToString() + "_" + model.Img2.FileName;
-                string filePath = Path.Combine(uploadsFolder, uniFileName);
+                uniFileName2 = Guid.NewGuid().ToString() + "_" + model.Img2.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniFileName2);
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
                     model.Img2.CopyTo(fileStream);
                 }
             }
+            return uniFileName2;
+        }
+        private string UploadedFile3(BookViewModel model)
+        {
+            string uniFileName3 = null;
             if (model.Img3 != null)
             {
                 string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "images");
-                uniFileName = Guid.NewGuid().ToString() + "_" + model.Img3.FileName;
-                string filePath = Path.Combine(uploadsFolder, uniFileName);
+                uniFileName3 = Guid.NewGuid().ToString() + "_" + model.Img3.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniFileName3);
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
                     model.Img3.CopyTo(fileStream);
                 }
             }
-            return uniFileName;
+            return uniFileName3;
         }
-
         // GET: Books
         public async Task<IActionResult> Index()
         {
@@ -99,17 +109,21 @@ namespace FPTBook.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(BookViewModel model)
         {
+            var categories = _context.Categories.ToList();
+            ViewBag.Categories = categories;
             if (ModelState.IsValid)
             {
-                string uniFileName = UploadedFile(model);
+                string uniFileName1 = UploadedFile1(model);
+                string uniFileName2 = UploadedFile2(model);
+                string uniFileName3 = UploadedFile3(model);
                 Book book = new Book
                 {
                     Title = model.Title,
                     Price = model.Price,
                     Rate = model.Rate,
-                    Img1 = uniFileName,
-                    Img2 = uniFileName,
-                    Img3 = uniFileName,
+                    Img1 = uniFileName1,
+                    Img2 = uniFileName2,
+                    Img3 = uniFileName3,
                     Quality = model.Quality,
                     CategoryId = model.CategoryId,
                 };
@@ -117,7 +131,7 @@ namespace FPTBook.Controllers
                 _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
-            return View();
+            return View(model);
         }
 
         // GET: Books/Edit/5

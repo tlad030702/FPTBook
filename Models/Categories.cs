@@ -12,6 +12,5 @@ namespace FPTBook.Models
         public string CategoryName { get; set; }
         [RegularExpression(@"^[A-Z]+[a-zA-Z\s]*$"), Required]
         public string? CategoryDescription { get; set; }
-        public ICollection<Book> Books { get; set; }
     }
 }

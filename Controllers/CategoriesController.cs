@@ -60,7 +60,7 @@ namespace FPTBook.Controllers
             {
                 _context.Categories.Add(categories);
                 await _context.SaveChangesAsync();
-                return Redirect("/index");
+                return RedirectToAction(nameof(Index));
             }
             return View(categories);
         }
