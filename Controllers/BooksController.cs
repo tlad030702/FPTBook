@@ -107,9 +107,23 @@ namespace FPTBook.Controllers
             {
                 return NotFound();
             }
-
+            var categories = _context.Categories.ToList();
+            ViewBag.Categories = categories;
             var book = await _context.Books
                 .FirstOrDefaultAsync(m => m.BookId == id);
+            var bookViewModel = new BookViewModel()
+            {
+                Id = book.BookId,
+                Title = book.Title,
+                Price = book.Price,
+                Rate = book.Rate,
+                ExistingImg1 = book.Img1,
+                ExistingImg2 = book.Img2,
+                ExistingImg3 = book.Img3,
+                Quality = book.Quality,
+                CategoryId = book.CategoryId,
+                Status = book.Status,
+            };
             if (book == null)
             {
                 return NotFound();
