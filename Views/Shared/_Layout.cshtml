@@ -12,21 +12,19 @@
     <link rel="stylesheet" href="~/FPTBook.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
     <!-- Template Main CSS Files -->
-    <link href="~/NewFolder/css/main.css" rel="stylesheet">
-    <link href="~/NewFolder/css/variables.css" rel="stylesheet">
+    <link href="~/NewFolder/css/main.css" rel="stylesheet" asp-append-version="true">
+    <link href="~/NewFolder/css/details.css" rel='stylesheet'>
 </head>
 <body> 
     <!-- ======= Header ======= -->
     <header id="header" class="header d-flex align-items-center fixed-top">
         <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
-
             <a asp-controller="Home" asp-action="Index" class="logo d-flex align-items-center">
                 <h1>FPT Book</h1>
             </a>
-
-            <nav id="navbar" class="navbar">
+            <nav id="navbar" class="navbar ">                                 
                 <ul>
-                    <li><a asp-controller="Home" asp-action="Index">Home</a></li>                   
+                    <li><a asp-controller="Home" asp-action="Index">Home</a></li>
                     <li class="dropdown">
                         <a href="#">
                             <span>Categories</span> <i class="bi bi-chevron-down dropdown-indicator"></i>
@@ -42,51 +40,50 @@
                     <li><a asp-controller="Home" asp-action="Privacy">About</a></li>
                     <li><a href="">Contact</a></li>
                     <partial name="_LoginPartial" />
-                </ul>
-                
+                </ul>                   
             </nav><!--navbar-->
 
             <div class="position-relative">              
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-                <i class="bi bi-list mobile-nav-toggle"></i>
+                <form class="d-flex" asp-action="Index">
+                    <input class="form-control me-2" type="text" placeholder="Search" name="searchString" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit" value="Filter">Search</button>
+                </form>              
             </div>
-             <partial name="_LoginPartial" />
+
         </div>
 
     </header><!-- End Header -->
     
-    <div class="container">
-        <main role="main" id="main" class="pb-3">
+    <div class="container" style="padding-bottom: 200px" id="main-content">
+        <main role="main" id="main" class="">
             @RenderBody()
         </main> 
     </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="footer-legal">
-            <div class="container">
-
-                <div class="row justify-content-between">
-                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                        <div class="credits">                           
-                            Designed by our Team
+    <footer class="footer">
+        <div class="footer-content">        
+            <div class="footer-legal">
+                <div class="container">
+                    <div class="row justify-content-between">
+                        <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                            <div class="credits">                           
+                                Designed by our Team
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="social-links mb-3 mb-lg-0 text-center text-md-end">
-                            <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-                            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-                            <a href="#" class="google-plus"><i class="bi bi-skype"></i></a>
-                            <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                        <div class="col-md-6">
+                            <div class="social-links mb-3 mb-lg-0 text-center text-md-end">
+                                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                                <a href="#" class="google-plus"><i class="bi bi-skype"></i></a>
+                                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                            </div>
+
                         </div>
 
                     </div>
 
                 </div>
-
             </div>
         </div>
     </footer>

@@ -63,6 +63,27 @@ namespace FPTBook.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "RequestBooks",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Rate = table.Column<int>(type: "int", nullable: false),
+                    Img1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Img2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Img3 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Quality = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RequestBooks", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -177,10 +198,11 @@ namespace FPTBook.Migrations
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Rate = table.Column<int>(type: "int", nullable: false),
-                    Img1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Img2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Img3 = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Img1 = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Img2 = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Img3 = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Quality = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -193,21 +215,6 @@ namespace FPTBook.Migrations
                         principalColumn: "CategoryId",
                         onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.InsertData(
-                table: "Categories",
-                columns: new[] { "CategoryId", "CategoryDescription", "CategoryName" },
-                values: new object[] { 1, "Action", "Action" });
-
-            migrationBuilder.InsertData(
-                table: "Categories",
-                columns: new[] { "CategoryId", "CategoryDescription", "CategoryName" },
-                values: new object[] { 2, "Action", "Action" });
-
-            migrationBuilder.InsertData(
-                table: "Categories",
-                columns: new[] { "CategoryId", "CategoryDescription", "CategoryName" },
-                values: new object[] { 3, "Action", "Action" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -273,6 +280,9 @@ namespace FPTBook.Migrations
 
             migrationBuilder.DropTable(
                 name: "Books");
+
+            migrationBuilder.DropTable(
+                name: "RequestBooks");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

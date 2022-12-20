@@ -17,16 +17,40 @@ namespace FPTBook.Controllers
             this.webHostEnvironment = webHostEnvironment;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            var books = await _context.Books.ToListAsync();
+            var books = from b in _context.Books select b;
             var categories = await _context.Categories.ToListAsync();
             ViewBag.Categories = categories;
-            return View(books);
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                books = books.Where(s => s.Title!.Contains(searchString));
+            }
+            return View(await books.ToListAsync());
+        }
+        public async Task<IActionResult> Details(int? id)
+        {
+            var categories = await _context.Categories.ToListAsync();
+            ViewBag.Categories = categories;
+            if (id == null || _context.Books == null)
+            {
+                return NotFound();
+            }
+
+            var book = await _context.Books
+                .FirstOrDefaultAsync(m => m.BookId == id);
+            if (book == null)
+            {
+                return NotFound();
+            }
+
+            return View(book);
         }
 
-        public IActionResult Privacy()
+        public async Task<IActionResult> Privacy()
         {
+            var categories = await _context.Categories.ToListAsync();
+            ViewBag.Categories = categories;
             return View();
         }
 

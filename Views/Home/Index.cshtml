@@ -79,37 +79,32 @@
     </div>
 </div>
 
-<div id="products" class="mt-5">
-    <h2>Casual Books</h2>
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-    @foreach(var item in Model)
-    {           
-        <div class="col">
-            <div class="card h-100 shadow custom-card">
-                <img src="~/img/@item.Img1" alt="" class="card-img-top w-100 custom-bg" />
-                    <div class="card-body">
-                        <div class="card-title">@item.Title</div>
-                    </div>
-                    <div class="card-footer custom-footer">
-                        <div class="float-start">
-                            <h4 class="custom-highlight">
-                                @item.Price
-                            </h4>
+    <div id="products" class="mt-5">
+        <h2>Casual Books</h2>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach(var item in Model)
+        {           
+            <div class="col">
+                <div class="card h-100 shadow custom-card">
+                    <a asp-action="Details" asp-route-id="@item.BookId"><img src="~/images/@item.Img1" alt="" class="card-img-top w-100 custom-bg" /></a>
+                        <div class="card-body">
+                            <a asp-action="Details" asp-route-id="@item.BookId"><div class="card-title">@item.Title</div></a>
                         </div>
-                        <div class="float-end">
-                            <button class="btn btn-primary rounded-3 custom-btn">
-                                <i class="fas fa-shopping-cart"></i>BUY NOW
-                            </button>
+                        <div class="card-footer custom-footer">
+                            <div class="float-start">
+                                <h4 class="text-danger">
+                                    @item.Price $
+                                </h4>
+                            </div>
+                            <div class="float-end">
+                                <button class="btn btn-primary rounded-3 custom-btn">
+                                    <i class="fas fa-shopping-cart"></i>BUY NOW
+                                </button>
+                            </div>
                         </div>
-                    </div>
-            </div>
-        </div>       
-    }
-    </div>
-
-</div>
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+                </div>
+            </div>       
+        }
+        </div>
+        
+    </div></div>
