@@ -1,21 +1,28 @@
-﻿using FPTBook.Models;
+﻿using FPTBook.Data;
+using FPTBook.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace FPTBook.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ApplicationDbContext _context;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment)
         {
-            _logger = logger;
+            _context = context;
+            this.webHostEnvironment = webHostEnvironment;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var books = await _context.Books.ToListAsync();
+            var categories = await _context.Categories.ToListAsync();
+            ViewBag.Categories = categories;
+            return View(books);
         }
 
         public IActionResult Privacy()

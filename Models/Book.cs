@@ -19,6 +19,7 @@ namespace FPTBook.Models
         [Display(Name = "Category")]
         [Column("CategoryId")]
         public int CategoryId { get; set; }
+
         [ForeignKey("CategoryId")]
         public Categories Categories { get; set; }
     }
