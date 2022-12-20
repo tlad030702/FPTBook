@@ -1,18 +1,21 @@
-﻿@model FPTBook.Models.Book
-
+﻿@model FPTBook.ViewModels.BookViewModel
+@*@model FPTBook.Models.Book*@
 @{
     ViewData["Title"] = "Edit";
 }
-
+@{
+    var categories = ViewBag.Categories;
+}
 <h1>Edit</h1>
 
 <h4>Book</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="BookId" />
+            
+            <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
@@ -30,18 +33,30 @@
             </div>
             <div class="form-group">
                 <label asp-for="Img1" class="control-label"></label>
-                <input asp-for="Img1" class="form-control" />
+                <div class="custom-file">
+                    <input asp-for="Img1" class="custom-file-input" />
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
                 <span asp-validation-for="Img1" class="text-danger"></span>
+                <img src="@FileLocation.RetriveFileFromFolder@Model.ExistingImg1" class="img-thumbnail" height="80" width="80" asp-append-version="true" />
             </div>
             <div class="form-group">
                 <label asp-for="Img2" class="control-label"></label>
-                <input asp-for="Img2" class="form-control" />
+                <div class="custom-file">
+                    <input asp-for="Img2" class="custom-file-input" />
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
                 <span asp-validation-for="Img2" class="text-danger"></span>
+                <img src="@FileLocation.RetriveFileFromFolder@Model.ExistingImg2" class="img-thumbnail" height="80" width="80" asp-append-version="true" />
             </div>
             <div class="form-group">
                 <label asp-for="Img3" class="control-label"></label>
-                <input asp-for="Img3" class="form-control" />
+                <div class="custom-file">
+                    <input asp-for="Img3" class="custom-file-input" />
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
                 <span asp-validation-for="Img3" class="text-danger"></span>
+                <img src="@FileLocation.RetriveFileFromFolder@Model.ExistingImg3" class="img-thumbnail" height="80" width="80" asp-append-version="true" />
             </div>
             <div class="form-group">
                 <label asp-for="Quality" class="control-label"></label>
@@ -49,19 +64,23 @@
                 <span asp-validation-for="Quality" class="text-danger"></span>
             </div>
             <div class="form-group mb-3">
-                <label asp-for="Categories"></label>
+                <label>Category</label>
                 <select asp-for="CategoryId" class="form-control">
                     <option value="0">Categories</option>
                     @{
                         foreach (var item in ViewBag.Categories)
                         {
-                            <option value="@item.Id">@item.Name</option>
+                            <option value="@item.CategoryId">@item.CategoryName</option>
                         }
                     }
 
                 </select>
                 <span asp-validation-for="CategoryId" class="text-danger"></span>
-
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <input asp-for="Status" class="form-control" />
+                <span asp-validation-for="Status" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
@@ -75,5 +94,12 @@
 </div>
 
 @section Scripts {
+    <script>
+        // Add the following code if you want the name of the file appear on select
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

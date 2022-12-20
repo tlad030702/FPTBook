@@ -1,78 +1,102 @@
 ﻿@model IEnumerable<FPTBook.Models.Book>
 @*@model FPTBook.ViewModels.BookViewModel*@
-
+@{
+    Layout = "DashBoard";
+}
 @{
     ViewData["Title"] = "Index";
 }
-
+@{
+    var categories = ViewBag.Categories;
+}
+<main id="main">
 <h1>Index</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Rate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Img1)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Img2)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Img3)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Quality)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CategoryId)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Rate)
-            </td>
-            <td>
-                <img src="~/images/@item.Img1">
-            </td>
-            <td>
-                <img src="~/images/@item.Img2">
-            </td>
-            <td>
-                <img src="~/images/@item.Img3">
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quality)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Categories.CategoryName)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.BookId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.BookId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.BookId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Rate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Img1)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Img2)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Img3)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Quality)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CategoryId)
+                </th>
+                <th>
+                    Status
+                </th>
+                <th>
+                    Action
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+    @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)$
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rate)
+                </td>
+                <td>
+                    @*<img class="img-fluid" style="width:120px; height:120px" src="~/images/@item.Img1">*@
+                    <img src="@FileLocation.RetriveFileFromFolder@item.Img1" class="img-fluid" style="width:120px; height:120px" asp-append-version="true" />
+                </td>
+                <td>
+                    @*<img class="img-fluid" style="width:120px; height:120px" src="~/images/@item.Img2">*@
+                     <img src="@FileLocation.RetriveFileFromFolder@item.Img2" class="img-fluid" style="width:120px; height:120px" asp-append-version="true" />
+                </td>
+                <td>
+                    @*<img class="img-fluid" style="width:120px; height:120px" src="~/images/@item.Img3">*@
+                     <img src="@FileLocation.RetriveFileFromFolder@item.Img3" class="img-fluid" style="width:120px; height:120px" asp-append-version="true" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quality)
+                </td>
+                <td>
+                    @for (int i = 0; i < ViewBag.Categories.Count; i++)
+                    {
+                        if (ViewBag.Categories[i].CategoryId == item.CategoryId)
+                        {
+                            <p>@ViewBag.Categories[i].CategoryName</p>
+                        }
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.BookId">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.BookId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.BookId">Delete</a>
+                </td>
+            </tr>
+    }
+        </tbody>
+    </table>
+</main>
