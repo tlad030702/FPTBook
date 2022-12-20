@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FPTBook.Models
@@ -12,5 +13,6 @@ namespace FPTBook.Models
         public string CategoryName { get; set; }
         [RegularExpression(@"^[A-Z]+[a-zA-Z\s]*$"), Required]
         public string? CategoryDescription { get; set; }
+        public ICollection<Book> Books { get; set; }
     }
 }

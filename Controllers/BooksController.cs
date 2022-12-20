@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using FPTBook.Data;
 using FPTBook.Models;
 using FPTBook.ViewModels;
+using Microsoft.Extensions.Hosting;
 
 namespace FPTBook.Controllers
 {
@@ -26,7 +27,12 @@ namespace FPTBook.Controllers
         private string UploadedFile1(BookViewModel model)
         {
             string uniFileName1 = null;
-            if(model.Img1 != null)
+            string path = Path.Combine(webHostEnvironment.WebRootPath, "images");
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            if (model.Img1 != null)
             {
                 string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "images");
                 uniFileName1 = Guid.NewGuid().ToString() + "_" + model.Img1.FileName;
@@ -42,6 +48,11 @@ namespace FPTBook.Controllers
         private string UploadedFile2(BookViewModel model)
         {
             string uniFileName2 = null;
+            string path = Path.Combine(webHostEnvironment.WebRootPath, "images");
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
             if (model.Img2 != null)
             {
                 string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "images");
@@ -57,6 +68,11 @@ namespace FPTBook.Controllers
         private string UploadedFile3(BookViewModel model)
         {
             string uniFileName3 = null;
+            string path = Path.Combine(webHostEnvironment.WebRootPath, "images");
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
             if (model.Img3 != null)
             {
                 string uploadsFolder = Path.Combine(webHostEnvironment.WebRootPath, "images");
@@ -70,9 +86,18 @@ namespace FPTBook.Controllers
             return uniFileName3;
         }
         // GET: Books
-        public async Task<IActionResult> Index()
+        //public async Task<IActionResult> Index()
+        //{
+
+        //    return View(await _context.Books.ToListAsync());
+        //}
+
+        public IActionResult Index()
         {
-            return View(await _context.Books.ToListAsync());
+            var book = _context.Books.ToList();
+            var categories = _context.Categories.ToList();
+            ViewBag.Categories = categories;
+            return View(book);
         }
 
         // GET: Books/Details/5
@@ -97,7 +122,6 @@ namespace FPTBook.Controllers
         public IActionResult Create()
         {
             var categories = _context.Categories.ToList();
-            //Categories categories1 =new Categories();
             ViewBag.Categories = categories;
             return View();
         }
@@ -107,7 +131,7 @@ namespace FPTBook.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(BookViewModel model)
+        public async Task<IActionResult> Create(BookViewModel model)
         {
             var categories = _context.Categories.ToList();
             ViewBag.Categories = categories;
@@ -126,9 +150,10 @@ namespace FPTBook.Controllers
                     Img3 = uniFileName3,
                     Quality = model.Quality,
                     CategoryId = model.CategoryId,
+                    Status = model.Status,
                 };
                 _context.Books.Add(book);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(model);
@@ -141,13 +166,27 @@ namespace FPTBook.Controllers
             {
                 return NotFound();
             }
-
+            var categories = _context.Categories.ToList();
+            ViewBag.Categories = categories;
             var book = await _context.Books.FindAsync(id);
+            var bookViewModel = new BookViewModel()
+            {
+                Id = book.BookId,
+                Title = book.Title,
+                Price = book.Price,
+                Rate = book.Rate,
+                ExistingImg1 = book.Img1,
+                ExistingImg2 = book.Img2,
+                ExistingImg3 = book.Img3,
+                Quality = book.Quality,
+                CategoryId = book.CategoryId,
+                Status = book.Status,
+            };
             if (book == null)
             {
                 return NotFound();
             }
-            return View(book);
+            return View(bookViewModel);
         }
 
         // POST: Books/Edit/5
@@ -155,23 +194,66 @@ namespace FPTBook.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("BookId,Title,Price,Rate,Img1,Img2,Img3,Quality,CategoryId")] Book book)
+        public async Task<IActionResult> Edit(int id, BookViewModel bookViewModel)
+        //public async Task<IActionResult> Edit(int id, [Bind("BookId,Title,Price,Rate,Img1,Img2,Img3,Quality,CategoryId")] Book book)
         {
-            if (id != book.BookId)
+            if (id != bookViewModel.Id)
             {
                 return NotFound();
             }
+            //if (id != book.BookId)
+            //{
+            //    return NotFound();
+            //}
 
             if (ModelState.IsValid)
             {
                 try
                 {
+                    var categories = _context.Categories.ToList();
+                    ViewBag.Categories = categories;
+                    var book = await _context.Books.FindAsync(bookViewModel.Id);
+                    book.Title = bookViewModel.Title;
+                    book.Price = bookViewModel.Price;
+                    book.Rate = bookViewModel.Rate;
+                    if (bookViewModel.Img1 != null)
+                    {
+                        if (bookViewModel.ExistingImg1 != null)
+                        {
+                            string filePath = Path.Combine(webHostEnvironment.WebRootPath, "images", bookViewModel.ExistingImg1);
+                            System.IO.File.Delete(filePath);
+                        }
+
+                        book.Img1 = UploadedFile1(bookViewModel);
+                    }
+                    if (bookViewModel.Img2 != null)
+                    {
+                        if (bookViewModel.ExistingImg1 != null)
+                        {
+                            string filePath = Path.Combine(webHostEnvironment.WebRootPath, "images", bookViewModel.ExistingImg2);
+                            System.IO.File.Delete(filePath);
+                        }
+
+                        book.Img2 = UploadedFile2(bookViewModel);
+                    }
+                    if (bookViewModel.Img3 != null)
+                    {
+                        if (bookViewModel.ExistingImg1 != null)
+                        {
+                            string filePath = Path.Combine(webHostEnvironment.WebRootPath, "images", bookViewModel.ExistingImg3);
+                            System.IO.File.Delete(filePath);
+                        }
+
+                        book.Img3 = UploadedFile3(bookViewModel);
+                    }
+                    book.Quality = bookViewModel.Quality;
+                    book.CategoryId = bookViewModel.CategoryId;
                     _context.Books.Update(book);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BookExists(book.BookId))
+                    if (!BookExists(bookViewModel.Id))
                     {
                         return NotFound();
                     }
@@ -182,7 +264,7 @@ namespace FPTBook.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(book);
+            return View();
         }
 
         // GET: Books/Delete/5
@@ -195,6 +277,19 @@ namespace FPTBook.Controllers
 
             var book = await _context.Books
                 .FirstOrDefaultAsync(m => m.BookId == id);
+            var bookViewModel = new BookViewModel()
+            {
+                Id = book.BookId,
+                Title = book.Title,
+                Price = book.Price,
+                Rate = book.Rate,
+                ExistingImg1 = book.Img1,
+                ExistingImg2 = book.Img2,
+                ExistingImg3 = book.Img3,
+                Quality = book.Quality,
+                CategoryId = book.CategoryId,
+                Status = book.Status,
+            };
             if (book == null)
             {
                 return NotFound();
@@ -210,9 +305,26 @@ namespace FPTBook.Controllers
         {
             if (_context.Books == null)
             {
-                return Problem("Entity set 'ApplicationDbContext.Books'  is null.");
+                return Problem("Entity set 'ApplicationDbContext.Books' is null.");
             }
             var book = await _context.Books.FindAsync(id);
+            string deleteFileFromFolder = Path.Combine(webHostEnvironment.WebRootPath, "images");
+            var CurrentImage1 = Path.Combine(Directory.GetCurrentDirectory(), deleteFileFromFolder, book.Img1);
+            var CurrentImage2 = Path.Combine(Directory.GetCurrentDirectory(), deleteFileFromFolder, book.Img2);
+            var CurrentImage3 = Path.Combine(Directory.GetCurrentDirectory(), deleteFileFromFolder, book.Img3);
+            _context.Books.Remove(book);
+            if (System.IO.File.Exists(CurrentImage1))
+            {
+                System.IO.File.Delete(CurrentImage1);
+            }
+            if (System.IO.File.Exists(CurrentImage2))
+            {
+                System.IO.File.Delete(CurrentImage2);
+            }
+            if (System.IO.File.Exists(CurrentImage3))
+            {
+                System.IO.File.Delete(CurrentImage3);
+            }
             if (book != null)
             {
                 _context.Books.Remove(book);

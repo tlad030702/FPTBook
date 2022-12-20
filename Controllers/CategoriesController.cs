@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FPTBook.Data;
 using FPTBook.Models;
+using FPTBook.ViewModels;
 
 namespace FPTBook.Controllers
 {
@@ -54,15 +55,20 @@ namespace FPTBook.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CategoryId,CategoryName,CategoryDescription")] Categories categories)
+        public IActionResult Create(CateViewModel cateViewModel)
         {
             if (ModelState.IsValid)
             {
+                Categories categories = new Categories
+                {
+                    CategoryName = cateViewModel.CategoryName,
+                    CategoryDescription = cateViewModel.CategoryDescription,
+                };
                 _context.Categories.Add(categories);
-                await _context.SaveChangesAsync();
+                _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
-            return View(categories);
+            return View(cateViewModel);
         }
 
         // GET: Categories/Edit/5
@@ -74,11 +80,16 @@ namespace FPTBook.Controllers
             }
 
             var categories = await _context.Categories.FindAsync(id);
+            var cateViewModel = new CateViewModel()
+            {
+                CategoryName = categories.CategoryName,
+                CategoryDescription = categories.CategoryDescription,
+            };
             if (categories == null)
             {
                 return NotFound();
             }
-            return View(categories);
+            return View(cateViewModel);
         }
 
         // POST: Categories/Edit/5
@@ -86,34 +97,23 @@ namespace FPTBook.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CategoryId,CategoryName,CategoryDescription")] Categories categories)
+        public async Task<IActionResult> Edit(int id, CateViewModel cateViewModel)
         {
-            if (id != categories.CategoryId)
-            {
-                return NotFound();
-            }
+            //if (id != categories.CategoryId)
+            //{
+            //    return NotFound();
+            //}
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(categories);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CategoriesExists(categories.CategoryId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                var categories = await _context.Categories.FindAsync(id);
+                categories.CategoryName = cateViewModel.CategoryName;
+                categories.CategoryDescription = cateViewModel.CategoryDescription;
+                _context.Update(categories);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(categories);
+            return View(cateViewModel);
         }
 
         // GET: Categories/Delete/5
