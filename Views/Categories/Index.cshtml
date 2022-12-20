@@ -3,7 +3,9 @@
 @{
     ViewData["Title"] = "Index";
 }
-
+@{
+    Layout = "DashBoard";
+}
 <h1>Index</h1>
 
 <p>
@@ -18,7 +20,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.CategoryDescription)
             </th>
-            <th></th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
