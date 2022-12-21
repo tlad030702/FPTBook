@@ -85,12 +85,7 @@ namespace FPTBook.Controllers
             }
             return uniFileName3;
         }
-        // GET: Books
-        //public async Task<IActionResult> Index()
-        //{
-
-        //    return View(await _context.Books.ToListAsync());
-        //}
+ 
 
         public IActionResult Index(string searchString)
         {
@@ -122,27 +117,15 @@ namespace FPTBook.Controllers
         // GET: Books/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            var categories = await _context.Categories.ToListAsync();
+            ViewBag.Categories = categories;
             if (id == null || _context.Books == null)
             {
                 return NotFound();
             }
-            var categories = _context.Categories.ToList();
-            ViewBag.Categories = categories;
+
             var book = await _context.Books
                 .FirstOrDefaultAsync(m => m.BookId == id);
-            var bookViewModel = new BookViewModel()
-            {
-                Id = book.BookId,
-                Title = book.Title,
-                Price = book.Price,
-                Rate = book.Rate,
-                ExistingImg1 = book.Img1,
-                ExistingImg2 = book.Img2,
-                ExistingImg3 = book.Img3,
-                Quality = book.Quality,
-                CategoryId = book.CategoryId,
-                Status = book.Status,
-            };
             if (book == null)
             {
                 return NotFound();
