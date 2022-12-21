@@ -53,7 +53,19 @@ namespace FPTBook.Controllers
             ViewBag.Categories = categories;
             return View();
         }
+        public async Task<IActionResult> About()
+        {
+            var categories = await _context.Categories.ToListAsync();
+            ViewBag.Categories = categories;
+            return View();  
+        }
 
+        public async Task<IActionResult> Contact()
+        {
+            var categories = await _context.Categories.ToListAsync();
+            ViewBag.Categories = categories;
+            return View();
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

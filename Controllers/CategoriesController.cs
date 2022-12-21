@@ -23,7 +23,9 @@ namespace FPTBook.Controllers
         // GET: Categories
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Categories.ToListAsync());
+            var categories = await _context.Categories.ToListAsync();
+            ViewBag.Categories = categories;
+              return View(categories);
         }
 
         // GET: Categories/Details/5
@@ -36,6 +38,8 @@ namespace FPTBook.Controllers
 
             var categories = await _context.Categories
                 .FirstOrDefaultAsync(m => m.CategoryId == id);
+            var categoriesNav = await _context.Categories.ToListAsync();
+            ViewBag.Categories = categoriesNav;
             if (categories == null)
             {
                 return NotFound();
@@ -45,8 +49,10 @@ namespace FPTBook.Controllers
         }
 
         // GET: Categories/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var categories = await _context.Categories.ToListAsync();
+            ViewBag.Categories = categories;
             return View();
         }
 
@@ -126,6 +132,8 @@ namespace FPTBook.Controllers
 
             var categories = await _context.Categories
                 .FirstOrDefaultAsync(m => m.CategoryId == id);
+            var categoriesNav = await _context.Categories.ToListAsync();
+            ViewBag.Categories = categoriesNav;
             if (categories == null)
             {
                 return NotFound();
