@@ -9,9 +9,12 @@ using FPTBook.Data;
 using FPTBook.Models;
 using FPTBook.ViewModels;
 using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace FPTBook.Controllers
 {
+    [Authorize(Roles = "Administrator, Staff")]
     public class BooksController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -44,7 +47,7 @@ namespace FPTBook.Controllers
             }
             return uniFileName1;
         }
-
+       
         private string UploadedFile2(BookViewModel model)
         {
             string uniFileName2 = null;
@@ -65,6 +68,7 @@ namespace FPTBook.Controllers
             }
             return uniFileName2;
         }
+       
         private string UploadedFile3(BookViewModel model)
         {
             string uniFileName3 = null;
@@ -85,36 +89,18 @@ namespace FPTBook.Controllers
             }
             return uniFileName3;
         }
- 
 
-        public IActionResult Index(string searchString)
+       
+        public IActionResult Index()
         {
-            //IQueryable<int> cateSearch = from c in _context.Books
-            //                             orderby c.CategoryId
-            //                             select c.CategoryId;
-            var books = from a in _context.Books select a;
-            //var book = _context.Books.ToList();
+            var book = _context.Books.ToList();
             var categories = _context.Categories.ToList();
             ViewBag.Categories = categories;
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                books = books.Where(t => t.Title!.Contains(searchString));
-            }
-
-            //var cate = from c in _context.Categories select c;
-            //if (searchCate != null)
-            //{
-            //    books = books.Where(c => c.CategoryId == searchCate);
-            //}
-            //var searchViewModel = new Search
-            //{
-            //    //Cates = new SelectList(cateSearch.Distinct().ToList()),
-            //    Books = books.ToList()
-            //};
-            return View(books);
+            return View(book);
         }
 
         // GET: Books/Details/5
+     
         public async Task<IActionResult> Details(int? id)
         {
             var categories = await _context.Categories.ToListAsync();
@@ -135,6 +121,7 @@ namespace FPTBook.Controllers
         }
 
         // GET: Books/Create
+       
         public IActionResult Create()
         {
             var categories = _context.Categories.ToList();
@@ -176,6 +163,7 @@ namespace FPTBook.Controllers
         }
 
         // GET: Books/Edit/5
+       
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Books == null)
