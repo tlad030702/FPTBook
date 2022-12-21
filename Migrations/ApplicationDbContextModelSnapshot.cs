@@ -161,6 +161,29 @@ namespace FPTBook.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "A",
+                            ConcurrencyStamp = "7d205837-b0a9-40b8-bd0e-677f9aa0fbdb",
+                            Name = "Administrator",
+                            NormalizedName = "Administrator"
+                        },
+                        new
+                        {
+                            Id = "B",
+                            ConcurrencyStamp = "3258990b-c777-4d3f-be4c-ccd25c110060",
+                            Name = "Customer",
+                            NormalizedName = "Customer"
+                        },
+                        new
+                        {
+                            Id = "C",
+                            ConcurrencyStamp = "81976675-d3d5-4dc8-9664-72ed3639adb1",
+                            Name = "Staff",
+                            NormalizedName = "Staff"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -251,6 +274,53 @@ namespace FPTBook.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "91b10d0b-275b-46e4-8614-6fe426386f49",
+                            Email = "admin@fpt.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedUserName = "admin@fpt.com",
+                            PasswordHash = "AQAAAAEAACcQAAAAEMoRN8Vi/2ETWiKuUgj8Waf4U5IQ1ZgtMZDU7EgO7MQ/vCmiHOpF+r8NfZrbjTbXAw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "741be129-9da2-44a6-acdb-6195f7ff240b",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@fpt.com"
+                        },
+                        new
+                        {
+                            Id = "2",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "c795034c-0528-4851-81d0-46bf15b39964",
+                            Email = "customer@fpt.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedUserName = "customer@fpt.com",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDCK7PJHOgd8BuSXJNEKeUEcFJonBzixpR2Q60DDG8Ccyqb+4XM/G5PRhJIXFZxcZQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "eb5b99d2-8088-432b-945a-573e54c8f36a",
+                            TwoFactorEnabled = false,
+                            UserName = "customer@fpt.com"
+                        },
+                        new
+                        {
+                            Id = "3",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "ab19e696-e057-467a-8e55-bae13659e0ba",
+                            Email = "Staff@fpt.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedUserName = "Staff@fpt.com",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBeprfmutEvsVc9Ih0HnWu6/IwXI8Halk4lEWpnTdaEn/3OHNvalFaWq9I6ExNsl0w==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "3a8fb7b9-77e1-46d0-a808-7608a3bd5b64",
+                            TwoFactorEnabled = false,
+                            UserName = "Staff@fpt.com"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -315,6 +385,18 @@ namespace FPTBook.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "1",
+                            RoleId = "A"
+                        },
+                        new
+                        {
+                            UserId = "2",
+                            RoleId = "B"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

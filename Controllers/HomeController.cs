@@ -19,9 +19,6 @@ namespace FPTBook.Controllers
 
         public async Task<IActionResult> Index(string searchString)
         {
-            IQueryable<int> genreQuery = from m in _context.Books
-                                            orderby m.CategoryId
-                                            select m.CategoryId;
             var books = from b in _context.Books select b;
             var categories = await _context.Categories.ToListAsync();
             ViewBag.Categories = categories;
@@ -30,14 +27,6 @@ namespace FPTBook.Controllers
                 books = books.Where(s => s.Title!.Contains(searchString));
             }
             return View(await books.ToListAsync());
-        }
-        public async Task<IActionResult> Category(int categoryId)
-        {
-            var categories = await _context.Categories.ToListAsync();
-            ViewBag.Categories = categories;
-            var books = from book in _context.Books select book;
-            books = books.Where(s => s.CategoryId == categoryId);
-            return View(books);
         }
         public async Task<IActionResult> Details(int? id)
         {
