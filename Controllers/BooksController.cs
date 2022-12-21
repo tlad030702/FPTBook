@@ -87,12 +87,31 @@ namespace FPTBook.Controllers
         }
  
 
-        public IActionResult Index()
+        public IActionResult Index(string searchString)
         {
-            var book = _context.Books.ToList();
+            //IQueryable<int> cateSearch = from c in _context.Books
+            //                             orderby c.CategoryId
+            //                             select c.CategoryId;
+            var books = from a in _context.Books select a;
+            //var book = _context.Books.ToList();
             var categories = _context.Categories.ToList();
             ViewBag.Categories = categories;
-            return View(book);
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                books = books.Where(t => t.Title!.Contains(searchString));
+            }
+
+            //var cate = from c in _context.Categories select c;
+            //if (searchCate != null)
+            //{
+            //    books = books.Where(c => c.CategoryId == searchCate);
+            //}
+            //var searchViewModel = new Search
+            //{
+            //    //Cates = new SelectList(cateSearch.Distinct().ToList()),
+            //    Books = books.ToList()
+            //};
+            return View(books);
         }
 
         // GET: Books/Details/5
