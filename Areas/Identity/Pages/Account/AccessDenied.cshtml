@@ -1,12 +1,10 @@
 ﻿@page
 @model AccessDeniedModel
 @{
-    ViewData["Title"] = "Cấm truy cập";
-    Layout = "_LayoutLogin";
-
+    ViewData["Title"] = "Access denied";
 }
 
-<div class="p-3">
+<header>
     <h1 class="text-danger">@ViewData["Title"]</h1>
-    <p class="text-danger">Bạn không được phép truy cập vào tài nguyên đã yêu cầu.</p>
-</div>
+    <p class="text-danger">You do not have access to this resource.</p>
+</header>

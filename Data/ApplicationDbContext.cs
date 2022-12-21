@@ -2,10 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 using FPTBook.Models;
 using Microsoft.AspNetCore.Identity;
+using System.Reflection.Emit;
 
 namespace FPTBook.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -17,6 +18,13 @@ namespace FPTBook.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            builder.Entity<ApplicationUser>()
+               .Property(e => e.FullName)
+            .HasMaxLength(250);
+
+            builder.Entity<ApplicationUser>()
+                .Property(e => e.Address)
+                .HasMaxLength(250);
 
             //Note: add dữ liệu cho bảng chứa PK trước (University)
             //rồi add dữ liệu cho bảng chứa FK sau (Student)
@@ -40,18 +48,22 @@ namespace FPTBook.Data
         private void SeedUser(ModelBuilder builder)
         {
             //1. tạo tài khoản ban đầu để add vào DB
-            var admin = new IdentityUser
+            var admin = new ApplicationUser
             { 
                 Id = "1",
+                FullName= "Duy Duong",
+                Address = "Ha noi",
                 UserName = "admin@fpt.com",
                 Email = "admin@fpt.com",
                 NormalizedUserName = "admin@fpt.com",
                 EmailConfirmed = true,
             };
 
-            var customer = new IdentityUser
+            var customer = new ApplicationUser
             {
                 Id = "2",
+                FullName = "Minh Duc",
+                Address = "Ha noi",
                 UserName = "customer@fpt.com",
                 Email = "customer@fpt.com",
                 NormalizedUserName = "customer@fpt.com",
@@ -59,9 +71,11 @@ namespace FPTBook.Data
                 
             };
 
-            var staff = new IdentityUser
+            var staff = new ApplicationUser
             {
                 Id = "3",
+                FullName = "Toan Duc",
+                Address = "Ha noi",
                 UserName = "Staff@fpt.com",
                 Email = "Staff@fpt.com",
                 NormalizedUserName = "Staff@fpt.com",
@@ -69,7 +83,7 @@ namespace FPTBook.Data
             };
 
             //2. khai báo thư viện để mã hóa mật khẩu
-            var hasher = new PasswordHasher<IdentityUser>();
+            var hasher = new PasswordHasher<ApplicationUser>();
 
             //3. thiết lập và mã hóa mật khẩu   từng tài khoản
             admin.PasswordHash = hasher.HashPassword(admin, "P@ssW0rd!");
@@ -77,7 +91,7 @@ namespace FPTBook.Data
             staff.PasswordHash = hasher.HashPassword(staff, "P@ssW0rd!");
 
             //4. add tài khoản vào db
-            builder.Entity<IdentityUser>().HasData(admin, customer, staff);
+            builder.Entity<ApplicationUser>().HasData(admin, customer, staff);
         }
 
         private void SeedRole(ModelBuilder builder)
@@ -122,34 +136,5 @@ namespace FPTBook.Data
                 }
              );
         }
-
-        //protected override void OnModelCreating(ModelBuilder builder)
-        //{
-        //    base.OnModelCreating(builder);
-        //    SeedCate(builder);
-
-        //}
-        //private void SeedCate(ModelBuilder builder)
-        //{
-        //    builder.Entity<Categories>().HasData(
-        //        new Categories
-        //        {
-        //            CategoryId = 1,
-        //            CategoryName = "Action",
-        //            CategoryDescription = "Action"
-        //        },
-        //        new Categories
-        //        {
-        //            CategoryId = 2,
-        //            CategoryName = "Action",
-        //            CategoryDescription = "Action"
-        //        },
-        //        new Categories
-        //        {
-        //            CategoryId = 3,
-        //            CategoryName = "Action",
-        //            CategoryDescription = "Action"
-        //        });
-        //}
     }
 }
