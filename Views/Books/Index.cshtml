@@ -1,0 +1,135 @@
+﻿@model IEnumerable<FPTBook.Models.Book>
+@*@model FPTBook.ViewModels.BookViewModel*@
+@{
+    Layout = "DashBoard";
+}
+@{
+    ViewData["Title"] = "Index";
+}
+@{
+    var categories = ViewBag.Categories;
+}
+<main id="main">
+    <div class="card card-body">
+        <div class="row">
+            <div class="col-md-8">
+                <h1>
+                    Books
+                    <a class="btn rounded-circle btn-success" asp-controller="Books" asp-action="Create" role="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    </a>
+                </h1>
+            </div>
+
+            <div class="form-group col-md-4">
+                <form class="form-inline">
+                    <input name="SearchString" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+        @*<form asp-controller="Books" asp-action="Index">
+            <p>
+                <select asp-for="CatesName" asp-items="Model.Cates">
+                    <option value=""> Category</option>
+                </select>
+                <input type="submit" value="Filter" />
+            </p>
+        </form>*@
+        <table class="table table-striped table-inverse">
+            <thead class="thead-inverse">
+                <tr>
+                    <th>
+                        @*@Html.DisplayNameFor(model => model.Title)*@
+                        Title
+                    </th>
+                    <th>
+                        @*@Html.DisplayNameFor(model => model.Price)*@
+                        Price
+                    </th>
+                    <th>
+                        @*@Html.DisplayNameFor(model => model.Rate)*@
+                        Rate
+                    </th>
+                    <th>
+                        @*@Html.DisplayNameFor(model => model.Img1)*@
+                        Img1
+                    </th>
+                    <th>
+                        @*@Html.DisplayNameFor(model => model.Img2)*@
+                        Img2
+                    </th>
+                    <th>
+                        @*@Html.DisplayNameFor(model => model.Img3)*@
+                        Img3
+                    </th>
+                    <th>
+                        @*@Html.DisplayNameFor(model => model.Quality)*@
+                        Quality
+                    </th>
+                    <th>
+                        @*@Html.DisplayNameFor(model => model.CategoryId)*@
+                        CategoryId
+                    </th>
+                    <th>
+                        @*@Html.DisplayNameFor(model => model.Status)*@
+                        Status
+                    </th>
+                    <th>
+                        Action
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Price)$
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Rate)
+                        </td>
+                        <td>
+                            @*<img class="img-fluid" style="width:120px; height:120px" src="~/images/@item.Img1">*@
+                            <img src="@FileLocation.RetriveFileFromFolder@item.Img1" class="img-fluid" style="width:120px; height:120px" asp-append-version="true" />
+                        </td>
+                        <td>
+                            @*<img class="img-fluid" style="width:120px; height:120px" src="~/images/@item.Img2">*@
+                            <img src="@FileLocation.RetriveFileFromFolder@item.Img2" class="img-fluid" style="width:120px; height:120px" asp-append-version="true" />
+                        </td>
+                        <td>
+                            @*<img class="img-fluid" style="width:120px; height:120px" src="~/images/@item.Img3">*@
+                            <img src="@FileLocation.RetriveFileFromFolder@item.Img3" class="img-fluid" style="width:120px; height:120px" asp-append-version="true" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Quality)
+                        </td>
+                        <td>
+                            @for (int i = 0; i < ViewBag.Categories.Count; i++)
+                            {
+                                if (ViewBag.Categories[i].CategoryId == item.CategoryId)
+                                {
+                                    <p>@ViewBag.Categories[i].CategoryName</p>
+                                }
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.BookId">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.BookId">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.BookId">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        
+    </div>
+</main>

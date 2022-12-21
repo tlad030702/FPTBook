@@ -1,0 +1,79 @@
+﻿@model FPTBook.ViewModels.BookViewModel
+@{
+    ViewData["Title"] = "Create";
+}
+@{
+    var categories = ViewBag.Categories;
+}
+<h1>Create</h1>
+
+<h4>Book</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rate" class="control-label"></label>
+                <input asp-for="Rate" class="form-control" />
+                <span asp-validation-for="Rate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Img1" class="control-label"></label>
+                <input type="file" asp-for="Img1" class="form-control" />
+                <span asp-validation-for="Img1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Img2" class="control-label"></label>
+                <input type="file" asp-for="Img2" class="form-control" />
+                <span asp-validation-for="Img2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Img3" class="control-label"></label>
+                <input type="file" asp-for="Img3" class="form-control" />
+                <span asp-validation-for="Img3" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Quality" class="control-label"></label>
+                <input asp-for="Quality" class="form-control" min="0" />
+                <span asp-validation-for="Quality" class="text-danger"></span>
+            </div>
+            <div>
+                <select asp-for="CategoryId" class="form-control">
+                    <option selected disabled>--Select A Category--</option>
+                    @foreach (var item in categories)
+                    {
+                        <option  value="@item.CategoryId">@item.CategoryName</option>
+                    }
+                </select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <input asp-for="Status" class="form-control"/>
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
