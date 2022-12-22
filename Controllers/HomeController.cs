@@ -1,6 +1,8 @@
 ﻿using FPTBook.Data;
 using FPTBook.Models;
+using FPTBook.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
@@ -16,7 +18,6 @@ namespace FPTBook.Controllers
             _context = context;
             this.webHostEnvironment = webHostEnvironment;
         }
-
         public async Task<IActionResult> Index(string searchString)
         {
             var books = from b in _context.Books select b;
@@ -28,6 +29,35 @@ namespace FPTBook.Controllers
             }
             return View(await books.ToListAsync());
         }
+
+        public async Task<IActionResult> IndexSearch(int category)
+        {
+            var categories = await _context.Categories.ToListAsync();
+            ViewBag.Categories = categories;
+            IQueryable<int> cateQuery = from m in _context.Categories
+                                        orderby m.CategoryId
+                                        select m.CategoryId;
+            var books = from b in _context.Books select b;
+            if(category != 0)
+            {
+                books = books.Where(s => s.CategoryId == category);
+            }
+            var bookCate = new BookByCate
+            {
+                selectListCate = new SelectList(await cateQuery.Distinct().ToListAsync()),
+                Books = await books.ToListAsync()
+            };
+            return View(bookCate);
+        }
+        //public async Task<IActionResult> Category(int categoryId)
+        //{
+        //    var categories = await _context.Categories.ToListAsync();
+        //    ViewBag.Categories = categories;
+        //    var books = from book in _context.Books select book;
+        //    books = books.Where(s => s.CategoryId == categoryId);
+        //    return View(books);
+        //}
+
         public async Task<IActionResult> Details(int? id)
         {
             var categories = await _context.Categories.ToListAsync();
