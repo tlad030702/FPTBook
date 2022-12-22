@@ -21,7 +21,7 @@ namespace FPTBook.Controllers
         }
 
         // GET: Categories
-        public async Task<IActionResult> Index(string searchString)
+        public IActionResult Index(string searchString)
         {
             var cats = from c in _context.Categories select c;
             //var book = _context.Books.ToList();
