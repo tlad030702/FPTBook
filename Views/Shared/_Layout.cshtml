@@ -1,5 +1,27 @@
-﻿@{
+﻿@using Newtonsoft.Json
+@{
     var categories = ViewBag.Categories;
+}
+
+@{
+    var data = Context.Session.GetString("cart");
+
+    int coutCart = 0;
+    if (data == null)
+    {
+        coutCart = 0;
+    }
+    else
+    {
+        var data2 = Context.Session.GetString("cart");
+        List<Cart> dataCart = JsonConvert.DeserializeObject<List<Cart>>(data2);
+        foreach (var item in dataCart)
+        {
+            coutCart += item.Quantity;
+        }
+
+    }
+
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -43,22 +65,14 @@
                                         
                                         <input type="submit" value="Filter" />
                                     </form>
-                                    </li>
-                            @*asp-route-id=""*@
-                                @*<li>
-                                    <p>
-                                        <a asp-controller="Home" asp-action="IndexSearch" asp-route-id="@item.CategoryId" type="input" name="SearchBook">
-                                            @item.CategoryName
-                                        </a>
-                                        <input type="submit" value="Filter" />
-                                    </p>
-                                </li>*@
+                                    </li>                          
                             }
                         </ul>
                     </li>
                     <li><a asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-action="Contact">Contact</a></li>
                     <partial name="_LoginPartial" />
+                    <li><a asp-action="ListCart"><i class="bi bi-cart-fill"></i>: @coutCart</a></li>
                 </ul>                   
             </nav><!--navbar-->
 

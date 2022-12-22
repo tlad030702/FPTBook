@@ -98,7 +98,9 @@
                             </div>
                             <div class="float-end">
                                 <button class="btn btn-primary rounded-3 custom-btn">
-                                    <i class="fas fa-shopping-cart"></i>BUY NOW
+                                    <a asp-controller="Home" asp-action="addCart" asp-route-id="@item.BookId">
+                                        <i class="fas fa-shopping-cart"></i>BUY NOW
+                                    </a>    
                                 </button>
                             </div>
                         </div>

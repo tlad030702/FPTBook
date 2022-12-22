@@ -1,0 +1,114 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "ListCart";
+    Layout = "_Layout";
+}
+@using Newtonsoft.Json
+<script src="~/js/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".updateCart").onClick(function (event) {
+            event.preventDefault();
+            var quantity = $(".quantity_" + $(this).attr("data-id")).val();
+            console.log(quantity);
+            $.ajax({
+                type: "POST",
+                url: "@(Url.Action("updateCart","Home"))",
+                data: {
+                    id: $(this).attr("data-id"),
+                    quantity: quantity
+                }
+                success: function (result) {
+                    window.location.href = '@(Url.Action("ListCart","Home"))';
+                }
+            });
+        });
+    });
+</script>
+<section class="vh-100" style="background-color: #fdccbc;">
+    <div class="container h-100" >
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col" style="margin-top : -380px;">
+                @{
+                    int STT = 0;
+                    foreach (var item in ViewBag.carts)
+                    {
+                        string txt_class = "quantity_" + item.Book.BookId;
+                        STT++;
+                        decimal total = item.Book.Price * item.Quantity;
+                        <p><span class="h2">Shopping Cart </span><span class="h4">(@item.Quantity item in your cart)</span></p>
+
+                        <div class="card mb-4">
+                            <div class="card-body p-4">
+
+                                <div class="row align-items-center">
+                                    <div class="col-md-2">
+                                        <img src="~/images/@item.Book.Img1"
+                                     class="img-fluid" alt="Generic placeholder image">
+                                    </div>
+                                    <div class="col-md-2 d-flex justify-content-center">
+                                        <div>
+                                            <p class="small text-muted mb-4 pb-2">Title</p>
+                                            <p class="lead fw-normal mb-0">@item.Book.Title</p>
+                                        </div>
+                                    </div>                                
+                                    <div class="col-md-2 d-flex justify-content-center">
+                                        <div>
+                                            <p class="small text-muted mb-4 pb-2">Quantity</p>
+                                            <p class="lead fw-normal mb-0">@item.Quantity</p>
+                                           @*<input type="number" class="@txt_class" value="@item.Quantity"/>*@
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 d-flex justify-content-center">
+                                        <div>
+                                            <p class="small text-muted mb-4 pb-2">Price</p>
+                                            <p class="lead fw-normal mb-0">@item.Book.Price</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 d-flex justify-content-center">
+                                        <div>
+                                            <p class="small text-muted mb-4 pb-2">Total</p>
+                                            <p class="lead fw-normal mb-0">@total</p>
+                                        </div>
+                                    </div>
+                                     <div class="col-md-2 d-flex justify-content-center">
+                                        <div>
+                                            <p class="small text-muted mb-4 pb-2">Action</p>
+                                            <div class="btn-group">
+                                                @*<a href="" data-id="@item.Book.BookId" class="updateCart">*@
+                                                  <a asp-controller="Home" asp-action="h0ld0n" asp-route-id="@item.Book.BookId">  
+                                                <button class="btn btn-warning">Update</button>
+                                                </a>
+                                                <a asp-controller="Home" asp-action="deleteCart" asp-route-id="@item.Book.BookId" class="btn btn-danger">Delete</a>
+                                            </div>                                          
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="card mb-5">
+                            <div class="card-body p-4">
+
+                                <div class="float-end">
+                                    <p class="mb-0 me-5 d-flex align-items-center">
+                                        <span class="small text-muted me-2">Order total:</span> <span class="lead fw-normal">@total</span>
+                                    </p>
+                                </div>
+
+                            </div>
+                        </div>     
+                        <div class="d-flex justify-content-end">
+                    <a asp-controller="Home" asp-action="deleteCart" asp-route-id="@item.Book.BookId" button type="button" class="btn btn-light btn-lg me-2">Check out</a>
+                    
+                </div>
+                    }
+               
+                }
+            </div>
+        </div>
+    </div>
+</section>
