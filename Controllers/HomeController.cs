@@ -34,8 +34,9 @@ namespace FPTBook.Controllers
             }
             return View(await books.ToListAsync());
         }
-
-        public async Task<IActionResult> IndexSearch(int category)
+        //[HttpGet]
+        //[Route("[Controller]/[Action]/{id}")]
+        public async Task<IActionResult> IndexSearch(int id)
         {
             var categories = await _context.Categories.ToListAsync();
             ViewBag.Categories = categories;
@@ -43,9 +44,9 @@ namespace FPTBook.Controllers
                                         orderby m.CategoryId
                                         select m.CategoryId;
             var books = from b in _context.Books select b;
-            if(category != 0)
+            if(id != 0)
             {
-                books = books.Where(s => s.CategoryId == category);
+                books = books.Where(s => s.CategoryId == id);
             }
             var bookCate = new BookbyCate
             {
