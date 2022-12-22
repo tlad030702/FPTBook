@@ -25,14 +25,7 @@ namespace FPTBook.Data
                 .Property(e => e.Address)
                 .HasMaxLength(250);
 
-            //Note: add dữ liệu cho bảng chứa PK trước (University)
-            //rồi add dữ liệu cho bảng chứa FK sau (Student)
-
-            //add dữ liệu khởi tạo cho bảng University
-            //PopulateUniversity(builder);
-
-            //add dữ liệu khởi tạo (initial data) cho bảng Student
-            //SeedStudent(builder);
+            
 
             //add dữ liệu cho bảng User
             SeedUser(builder);

@@ -92,6 +92,7 @@
                             <div class="card-body">
                                 <a asp-action="Details" asp-route-id="@item.BookId"><div class="card-title">@item.Title</div></a>
                             </div>
+
                             <div class="card-footer custom-footer">
                                 <div class="float-start">
                                     <h4 class="text-danger">
@@ -99,9 +100,11 @@
                                     </h4>
                                 </div>
                                 <div class="float-end">
-                                    <button class="btn btn-primary rounded-3 custom-btn">
+                                <button class="btn btn-primary rounded-3 custom-btn">
+                                    <a asp-controller="Home" asp-action="addCart" asp-route-id="@item.BookId">
                                         <i class="fas fa-shopping-cart"></i>BUY NOW
-                                    </button>
+                                    </a>    
+                                </button>
                                 </div>
                             </div>
                         </div>

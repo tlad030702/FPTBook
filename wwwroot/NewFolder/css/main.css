@@ -71,6 +71,12 @@ margin-right: 6px;
 padding: 0;
 }
 
+.navbar ul li a{
+    font-size : 20px;
+}
+    .navbar ul li a i{
+        font-size: 20px;
+    }
 .navbar ul {
 margin: 0;
 padding: 0;

@@ -4,6 +4,7 @@ using FPTBook.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using System.Diagnostics;
 
 namespace FPTBook.Controllers
@@ -50,7 +51,7 @@ namespace FPTBook.Controllers
             }
             var bookCate = new BookbyCate
             {
-                selectListCate = new SelectList(await cateQuery.Distinct().ToListAsync()),
+                selectListItems = new SelectList(await cateQuery.Distinct().ToListAsync()),
                 Books = await books.ToListAsync()
             };
             return View(bookCate);
@@ -107,5 +108,160 @@ namespace FPTBook.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        //Actions for Shopping Cart
+        private Book getDetailBook(int id)
+        {
+            var book = _context.Books.Find(id);
+            return book;
+        }
+        public IActionResult addCart(int id)
+        {
+            var cart = HttpContext.Session.GetString("cart");//get key cart
+            if (cart == null)
+            {
+                var book = getDetailBook(id);
+                List<Cart> listCart = new List<Cart>()
+               {
+                   new Cart
+                   {
+                       Book = book,
+                       Quantity = 1
+                   }
+               };
+                HttpContext.Session.SetString("cart", JsonConvert.SerializeObject(listCart));
+
+            }
+            else
+            {
+                List<Cart> dataCart = JsonConvert.DeserializeObject<List<Cart>>(cart);
+                bool check = true;
+                for (int i = 0; i < dataCart.Count; i++)
+                {
+                    if (dataCart[i].Book.BookId == id)
+                    {
+                        dataCart[i].Quantity++;
+                        check = false;
+                    }
+                }
+                if (check)
+                {
+                    dataCart.Add(new Cart
+                    {
+                        Book = getDetailBook(id),
+                        Quantity = 1
+                    });
+                }
+                HttpContext.Session.SetString("cart", JsonConvert.SerializeObject(dataCart));              
+            }
+
+            return RedirectToAction(nameof(Index));
+
+        }
+        public IActionResult h0ld0n(int id)
+        {
+            var cart = HttpContext.Session.GetString("cart");//get key cart
+            if (cart == null)
+            {
+                var book = getDetailBook(id);
+                List<Cart> listCart = new List<Cart>()
+               {
+                   new Cart
+                   {
+                       Book = book,
+                       Quantity = 1
+                   }
+               };
+                HttpContext.Session.SetString("cart", JsonConvert.SerializeObject(listCart));
+
+            }
+            else
+            {
+                List<Cart> dataCart = JsonConvert.DeserializeObject<List<Cart>>(cart);
+                bool check = true;
+                for (int i = 0; i < dataCart.Count; i++)
+                {
+                    if (dataCart[i].Book.BookId == id)
+                    {
+                        dataCart[i].Quantity++;
+                        check = false;
+                    }
+                }
+                if (check)
+                {
+                    dataCart.Add(new Cart
+                    {
+                        Book = getDetailBook(id),
+                        Quantity = 1
+                    });
+                }
+                HttpContext.Session.SetString("cart", JsonConvert.SerializeObject(dataCart));
+            }
+
+            return Redirect("/Home/ListCart");
+
+        }
+
+        public async Task<IActionResult> ListCart()
+        {
+            var categories = await _context.Categories.ToListAsync();
+            ViewBag.Categories = categories;
+            var cart = HttpContext.Session.GetString("cart");//get key cart
+            if (cart != null)
+            {
+                List<Cart> dataCart = JsonConvert.DeserializeObject<List<Cart>>(cart);
+                if (dataCart.Count > 0)
+                {
+                    ViewBag.carts = dataCart;
+                    return View();
+                }
+            }
+            return RedirectToAction(nameof(Index));
+        }
+        public IActionResult deleteCart(int id)
+        {
+            var cart = HttpContext.Session.GetString("cart");
+            if (cart != null)
+            {
+                List<Cart> dataCart = JsonConvert.DeserializeObject<List<Cart>>(cart);
+
+                for (int i = 0; i < dataCart.Count; i++)
+                {
+                    if (dataCart[i].Book.BookId == id)
+                    {
+                        dataCart.RemoveAt(i);
+                    }
+                }
+                HttpContext.Session.SetString("cart", JsonConvert.SerializeObject(dataCart));
+                return RedirectToAction(nameof(ListCart));
+            }
+            return RedirectToAction(nameof(Index));
+        }
+
+        //public IActionResult updateCart(int id, int quantity)
+        //{
+        //    var cart = HttpContext.Session.GetString("cart");
+        //    if (cart != null)
+        //    {
+        //        List<Cart> dataCart = JsonConvert.DeserializeObject<List<Cart>>(cart);
+        //        if (quantity > 0)
+        //        {
+        //            for (int i = 0; i < dataCart.Count; i++)
+        //            {
+        //                if (dataCart[i].Book.BookId == id)
+        //                {
+        //                    dataCart[i].Quantity = quantity;
+        //                }
+        //            }
+        //            HttpContext.Session.SetString("cart", JsonConvert.SerializeObject(dataCart));
+        //        }
+        //        var cart2 = HttpContext.Session.GetString("cart");
+        //        return Ok(quantity);
+        //    }
+        //    return BadRequest();
+
+        //}
+
+
     }
 }

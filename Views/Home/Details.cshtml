@@ -53,7 +53,7 @@
                                         <a asp-action="Index" class="btn btn-danger w-100">Back to List</a>
                                     </div>
                                     <div class="col-lg-6">
-                                        <a href="#" class="btn btn-success w-100">Add to Cart</a>
+                                        <a asp-controller="Home" asp-action="addCart" asp-route-id="@Model.BookId" class="btn btn-success w-100">Add to Cart</a>
                                     </div>
                                 </div>
                             </div>
