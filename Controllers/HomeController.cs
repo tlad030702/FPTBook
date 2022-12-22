@@ -20,7 +20,6 @@ namespace FPTBook.Controllers
         }
         public async Task<IActionResult> Index(string searchString)
         {
-            
             var books = from b in _context.Books select b;
             var categories = await _context.Categories.ToListAsync();
             ViewBag.Categories = categories;
@@ -58,6 +57,7 @@ namespace FPTBook.Controllers
         //    books = books.Where(s => s.CategoryId == categoryId);
         //    return View(books);
         //}
+
         public async Task<IActionResult> Details(int? id)
         {
             var categories = await _context.Categories.ToListAsync();

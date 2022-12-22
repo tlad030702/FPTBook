@@ -21,18 +21,11 @@ namespace FPTBook.Controllers
         }
 
         // GET: Categories
-        public IActionResult Index(string searchString)
+        public async Task<IActionResult> Index()
         {
-            var cats = from c in _context.Categories select c;
-            //var book = _context.Books.ToList();
-            var categories = _context.Categories.ToList();
+            var categories = await _context.Categories.ToListAsync();
             ViewBag.Categories = categories;
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                cats = cats.Where(t => t.CategoryName!.Contains(searchString));
-            }
-            //return View(await _context.Categories.ToListAsync());
-            return View(cats);
+              return View(categories);
         }
 
         // GET: Categories/Details/5
