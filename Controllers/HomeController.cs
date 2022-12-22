@@ -47,7 +47,7 @@ namespace FPTBook.Controllers
             {
                 books = books.Where(s => s.CategoryId == category);
             }
-            var bookCate = new BookByCate
+            var bookCate = new BookbyCate
             {
                 selectListCate = new SelectList(await cateQuery.Distinct().ToListAsync()),
                 Books = await books.ToListAsync()
