@@ -14,6 +14,5 @@ namespace FPTBook.ViewModels
         //public IFormFile Img2 { get; set; }
         //public IFormFile Img3 { get; set; }
         public int CategoryId { get; set; }
-        public string Status { get; set; }
     }
 }

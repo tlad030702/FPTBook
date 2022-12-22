@@ -14,7 +14,6 @@ namespace FPTBook.Data
         }
         public DbSet<Categories> Categories { get; set; }
         public DbSet<Book> Books { get; set; }
-        public DbSet<RequestBook> RequestBooks { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

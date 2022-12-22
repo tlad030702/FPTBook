@@ -7,7 +7,7 @@ namespace FPTBook.ViewModels
     public class BookbyCate
     {
         public List<Book> Books { get; set; }
-        public SelectList selectListItems { get; set; }
+        public SelectList selectListCate { get; set; }
         public int CateId { get; set; }
     }
 }

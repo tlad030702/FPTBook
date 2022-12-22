@@ -16,8 +16,6 @@ namespace FPTBook.Models
         public string Img2 { get; set; }
         public string Img3 { get; set; }
         public int Quality { get; set; }
-        [Required]
-        public string Status { get; set; }
         [Display(Name = "Category")]
         [Column("CategoryId")]
         public int CategoryId { get; set; }

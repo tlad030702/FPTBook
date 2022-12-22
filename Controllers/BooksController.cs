@@ -89,17 +89,36 @@ namespace FPTBook.Controllers
             }
             return uniFileName3;
         }
-        
-        public async Task<IActionResult> Index()
+
+        public IActionResult Index(string searchString)
         {
-            var books = await _context.Books.ToListAsync();
+            //IQueryable<int> cateSearch = from c in _context.Books
+            //                             orderby c.CategoryId
+            //                             select c.CategoryId;
+            var books = from a in _context.Books select a;
+            //var book = _context.Books.ToList();
             var categories = _context.Categories.ToList();
             ViewBag.Categories = categories;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                books = books.Where(t => t.Title!.Contains(searchString));
+            }
+
+            //var cate = from c in _context.Categories select c;
+            //if (searchCate != null)
+            //{
+            //    books = books.Where(c => c.CategoryId == searchCate);
+            //}
+            //var searchViewModel = new Search
+            //{
+            //    //Cates = new SelectList(cateSearch.Distinct().ToList()),
+            //    Books = books.ToList()
+            //};
             return View(books);
         }
 
         // GET: Books/Details/5
-     
+
         public async Task<IActionResult> Details(int? id)
         {
             var categories = await _context.Categories.ToListAsync();
@@ -152,7 +171,6 @@ namespace FPTBook.Controllers
                     Img3 = uniFileName3,
                     Quality = model.Quality,
                     CategoryId = model.CategoryId,
-                    Status = model.Status,
                 };
                 _context.Books.Add(book);
                 await _context.SaveChangesAsync();
@@ -183,7 +201,6 @@ namespace FPTBook.Controllers
                 ExistingImg3 = book.Img3,
                 Quality = book.Quality,
                 CategoryId = book.CategoryId,
-                Status = book.Status,
             };
             if (book == null)
             {
@@ -293,7 +310,6 @@ namespace FPTBook.Controllers
                 ExistingImg3 = book.Img3,
                 Quality = book.Quality,
                 CategoryId = book.CategoryId,
-                Status = book.Status,
             };
             if (book == null)
             {

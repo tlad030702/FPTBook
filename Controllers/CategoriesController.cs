@@ -21,11 +21,18 @@ namespace FPTBook.Controllers
         }
 
         // GET: Categories
-        public async Task<IActionResult> Index()
+        public IActionResult Index(string searchString)
         {
-            var categories = await _context.Categories.ToListAsync();
+            var cats = from c in _context.Categories select c;
+            //var book = _context.Books.ToList();
+            var categories = _context.Categories.ToList();
             ViewBag.Categories = categories;
-              return View(categories);
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                cats = cats.Where(t => t.CategoryName!.Contains(searchString));
+            }
+            //return View(await _context.Categories.ToListAsync());
+            return View(cats);
         }
 
         // GET: Categories/Details/5
@@ -80,11 +87,12 @@ namespace FPTBook.Controllers
         // GET: Categories/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            var categories1 = await _context.Categories.ToListAsync();
+            ViewBag.Categories = categories1;
             if (id == null || _context.Categories == null)
             {
                 return NotFound();
             }
-
             var categories = await _context.Categories.FindAsync(id);
             var cateViewModel = new CateViewModel()
             {
