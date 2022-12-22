@@ -17,7 +17,7 @@ namespace FPTBook.Controllers
             this.webHostEnvironment = webHostEnvironment;
         }
 
-        public async Task<IActionResult> Index(string searchString)
+        public async Task<IActionResult> Index(string searchString,int? categoryId)
         {
             var books = from b in _context.Books select b;
             var categories = await _context.Categories.ToListAsync();
@@ -25,6 +25,10 @@ namespace FPTBook.Controllers
             if (!String.IsNullOrEmpty(searchString))
             {
                 books = books.Where(s => s.Title!.Contains(searchString));
+            }
+            if (categoryId != null)
+            {
+                books = books.Where(s => s.CategoryId == categoryId);
             }
             return View(await books.ToListAsync());
         }

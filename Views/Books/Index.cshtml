@@ -9,7 +9,9 @@
 @{
     var categories = ViewBag.Categories;
 }
-<main id="main">
+@if (User.Identity.IsAuthenticated && User.IsInRole("Administrator"))
+{
+<main id="main"> 
     <div class="card card-body">
         <div class="row">
             <div class="col-md-8">
@@ -27,20 +29,6 @@
                 </form>
             </div>
         </div>
-        @*<form asp-controller="Books" asp-action="Index">
-            <p>
-                <select asp-for="CatesName" asp-items="Model.Cates">
-                    <option value=""> Category</option>
-                </select>
-                <input type="submit" value="Filter" />
-            </p>
-        </form>*@
-        <table class="table table-striped table-inverse">
-            <thead class="thead-inverse">
-@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
-    {
-    <main id="main">
-        <h1>Index</h1>
 
         <p>
             <a asp-action="Create">Create New</a>
@@ -130,5 +118,6 @@
                     }
             </tbody>
         </table>
+        </div>
     </main>
-    }
+ }

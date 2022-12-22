@@ -89,14 +89,13 @@ namespace FPTBook.Controllers
             }
             return uniFileName3;
         }
-
-       
-        public IActionResult Index()
+        
+        public async Task<IActionResult> Index()
         {
-            var book = _context.Books.ToList();
+            var books = await _context.Books.ToListAsync();
             var categories = _context.Categories.ToList();
             ViewBag.Categories = categories;
-            return View(book);
+            return View(books);
         }
 
         // GET: Books/Details/5

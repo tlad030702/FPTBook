@@ -35,7 +35,7 @@
                         <ul>
                             @foreach(var item in categories)
                             {
-                                <li><a href="#">@item.CategoryName</a></li>
+                                <li><a asp-action="Index" asp-route-id="@item.CategoryId">@item.CategoryName</a></li>
                             }
                         </ul>
                     </li>
