@@ -280,7 +280,7 @@ namespace FPTBook.Controllers
 
             var book = await _context.Books
                 .FirstOrDefaultAsync(m => m.BookId == id);
-            var categories = _context.Categories.ToList();
+            var categories = await _context.Categories.ToListAsync();
             ViewBag.Categories = categories;
             var bookViewModel = new BookViewModel()
             {

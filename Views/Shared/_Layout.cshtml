@@ -35,7 +35,24 @@
                         <ul>
                             @foreach(var item in categories)
                             {
-                                <li><a asp-action="Index" asp-route-id="@item.CategoryId">@item.CategoryName</a></li>
+                                @* <li><a asp-action="Index" asp-route-id="@item.CategoryId">@item.CategoryName</a></li> *@
+                                <li><form asp-controller="Home" asp-action="IndexSearch" >
+                                        <option value="@item.CategoryId">
+                                            @item.CategoryName
+                                        </option>
+                                        
+                                        <input type="submit" value="Filter" />
+                                    </form>
+                                    </li>
+                            @*asp-route-id=""*@
+                                @*<li>
+                                    <p>
+                                        <a asp-controller="Home" asp-action="IndexSearch" asp-route-id="@item.CategoryId" type="input" name="SearchBook">
+                                            @item.CategoryName
+                                        </a>
+                                        <input type="submit" value="Filter" />
+                                    </p>
+                                </li>*@
                             }
                         </ul>
                     </li>

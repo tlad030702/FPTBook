@@ -3,6 +3,12 @@
 @{
     ViewData["Title"] = "Details";
 }
+<style>
+    .img-thumbnail {
+        width: 150px;
+        height: 200px;
+    }
+</style>
 
 <h1>Details</h1>
 
@@ -32,19 +38,19 @@
             @Html.DisplayNameFor(model => model.Img1)
         </dt>
         <dd class = "col-sm-10">
-            <img src="~/images/@Model.Img1">
+            <img class="img-thumbnail" src="~/images/@Model.Img1">
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Img2)
         </dt>
         <dd class = "col-sm-10">
-            <img src="~/images/@Model.Img2">
+            <img class="img-thumbnail" src="~/images/@Model.Img2">
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Img3)
         </dt>
         <dd class = "col-sm-10">
-            <img src="~/images/@Model.Img3">
+            <img class="img-thumbnail" src="~/images/@Model.Img3">
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Quality)
