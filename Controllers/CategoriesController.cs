@@ -25,7 +25,7 @@ namespace FPTBook.Controllers
         {
             var categories = await _context.Categories.ToListAsync();
             ViewBag.Categories = categories;
-              return View(categories);
+            return View(categories);
         }
 
         // GET: Categories/Details/5
