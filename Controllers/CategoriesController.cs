@@ -87,11 +87,12 @@ namespace FPTBook.Controllers
         // GET: Categories/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            var categories1 = await _context.Categories.ToListAsync();
+            ViewBag.Categories = categories1;
             if (id == null || _context.Categories == null)
             {
                 return NotFound();
             }
-
             var categories = await _context.Categories.FindAsync(id);
             var cateViewModel = new CateViewModel()
             {

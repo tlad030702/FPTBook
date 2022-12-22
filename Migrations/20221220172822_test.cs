@@ -62,27 +62,7 @@ namespace FPTBook.Migrations
                     table.PrimaryKey("PK_Categories", x => x.CategoryId);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "RequestBooks",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Rate = table.Column<int>(type: "int", nullable: false),
-                    Img1 = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Img2 = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Img3 = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Quality = table.Column<int>(type: "int", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RequestBooks", x => x.Id);
-                });
-
+           
             migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
@@ -202,7 +182,6 @@ namespace FPTBook.Migrations
                     Img2 = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Img3 = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Quality = table.Column<int>(type: "int", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CategoryId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

@@ -4,8 +4,9 @@ namespace FPTBook.ViewModels
 {
     public class CateViewModel
     {
+        [Required]
         public string CategoryName { get; set; }
-        [RegularExpression(@"^[A-Z]+[a-zA-Z\s]*$"), Required]
+        [Required]
         public string? CategoryDescription { get; set; }
     }
 }

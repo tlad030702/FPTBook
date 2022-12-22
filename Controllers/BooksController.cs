@@ -171,7 +171,6 @@ namespace FPTBook.Controllers
                     Img3 = uniFileName3,
                     Quality = model.Quality,
                     CategoryId = model.CategoryId,
-                    Status = model.Status,
                 };
                 _context.Books.Add(book);
                 await _context.SaveChangesAsync();
@@ -202,7 +201,6 @@ namespace FPTBook.Controllers
                 ExistingImg3 = book.Img3,
                 Quality = book.Quality,
                 CategoryId = book.CategoryId,
-                Status = book.Status,
             };
             if (book == null)
             {
@@ -312,7 +310,6 @@ namespace FPTBook.Controllers
                 ExistingImg3 = book.Img3,
                 Quality = book.Quality,
                 CategoryId = book.CategoryId,
-                Status = book.Status,
             };
             if (book == null)
             {
