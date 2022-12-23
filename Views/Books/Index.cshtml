@@ -9,8 +9,7 @@
 @{
     var categories = ViewBag.Categories;
 }
-@if (User.Identity.IsAuthenticated && User.IsInRole("Administrator"))
-{
+
 <main id="main"> 
     <div class="card card-body">
         <div class="row">
@@ -59,9 +58,6 @@
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.CategoryId)
-                    </th>
-                    <th>
-                        Status
                     </th>
                     <th>
                         Action
@@ -117,4 +113,4 @@
         </table>
         </div>
     </main>
- }
+

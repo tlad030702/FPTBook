@@ -47,8 +47,8 @@
             <ul class="navbar-item flex-row ml-md-auto">
 
                 <li class="nav-item dropdown user-profile-dropdown">
-                    <a href="javascript:void(0);" class="nav-link dropdown-toggle user" id="userProfileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        <span style="color: #aaa">Hello , Admin 
+                    <a asp-area="Identity" asp-page="/Account/Manage/Index" class="nav-link dropdown-toggle user" id="userProfileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <span style="color: #aaa">Hello , Admin </span>
                     </a>
                     <div class="dropdown-menu position-absolute" aria-labelledby="userProfileDropdown">
                         <div class="dropdown-item">
@@ -109,34 +109,68 @@
                             </div>
                         </a>
                     </li>
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("Administrator"))
+                    {
+                        <li class="menu">
 
-                    <li class="menu">
+                            <a asp-controller="Admin" asp-action="Reset" aria-expanded="false" class="dropdown-toggle">
+                                <div class="text-center cursor-pointer">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bookmark"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+                                    <span>Manage Account</span>
+                                </div>
+                            </a>
+                        </li>
 
-                        <a asp-controller="Books" asp-action="Index" aria-expanded="false" class="dropdown-toggle">
-                            <div class="text-center cursor-pointer">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bookmark"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
-                                <span>Manage Book</span>
-                            </div>
-                        </a>
-                    </li>
+                        <li class="menu">
+                            <a asp-controller="Admin" asp-action="Index" aria-expanded="false" class="dropdown-toggle">
+                                <div class="text-center cursor-pointer">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-archive"><polyline points="21 8 21 21 3 21 3 8"></polyline><rect x="1" y="3" width="22" height="5"></rect><line x1="10" y1="12" x2="14" y2="12"></line></svg>
+                                    <span>Manage Category's request</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="menu">
+                            <a asp-controller="Books" asp-action="Index" aria-expanded="false" class="dropdown-toggle">
+                                <div class="text-center cursor-pointer">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bookmark"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+                                    <span>Manage Book</span>
+                                </div>
+                            </a>
+                        </li>
 
-                    <li class="menu">
-                        <a asp-controller="Categories" asp-action="Index" aria-expanded="false" class="dropdown-toggle">
-                            <div class="text-center cursor-pointer">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-archive"><polyline points="21 8 21 21 3 21 3 8"></polyline><rect x="1" y="3" width="22" height="5"></rect><line x1="10" y1="12" x2="14" y2="12"></line></svg>
-                                <span>Manage Category</span>
-                            </div>
-                        </a>
-                    </li>
+                        <li class="menu">
+                            <a asp-controller="Categories" asp-action="Index" aria-expanded="false" class="dropdown-toggle">
+                                <div class="text-center cursor-pointer">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-archive"><polyline points="21 8 21 21 3 21 3 8"></polyline><rect x="1" y="3" width="22" height="5"></rect><line x1="10" y1="12" x2="14" y2="12"></line></svg>
+                                    <span>Manage Category</span>
+                                </div>
+                            </a>
+                        </li>
+                    }
+                    else 
+                    {
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Staff"))
+                        {
+                            <li class="menu">
 
-                    <li class="menu">
-                        <a asp-controller="" asp-action="" aria-expanded="false" class="dropdown-toggle">
-                            <div class="text-center cursor-pointer">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                                <span>Manage Order</span>
-                            </div>
-                        </a>
-                    </li>
+                                <a asp-controller="Books" asp-action="Index" aria-expanded="false" class="dropdown-toggle">
+                                    <div class="text-center cursor-pointer">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bookmark"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+                                        <span>Manage Book</span>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li class="menu">
+                                <a asp-controller="Categories" asp-action="Index" aria-expanded="false" class="dropdown-toggle">
+                                    <div class="text-center cursor-pointer">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-archive"><polyline points="21 8 21 21 3 21 3 8"></polyline><rect x="1" y="3" width="22" height="5"></rect><line x1="10" y1="12" x2="14" y2="12"></line></svg>
+                                        <span>Manage Category</span>
+                                    </div>
+                                </a>
+                            </li>
+                        }
+                    }
                 </ul>
 
             </nav>

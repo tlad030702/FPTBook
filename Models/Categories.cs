@@ -11,8 +11,9 @@ namespace FPTBook.Models
         public int CategoryId { get; set; }
         [Required]
         public string CategoryName { get; set; }
-        [Required]
         public string? CategoryDescription { get; set; }
+        [Required]
+        public string Status { get; set; }
         public ICollection<Book> Books { get; set; }
     }
 }
