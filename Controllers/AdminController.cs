@@ -122,5 +122,25 @@ namespace FPTBook.Controllers
             }
 
         }
+
+
+        //// POST: Categories/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Delete(int id)
+        //{
+        //    if (context. == null)
+        //    {
+        //        return Problem("Entity set 'ApplicationDbContext.Categories' is null.");
+        //    }
+        //    var categories = await _context.Categories.FindAsync(id);
+        //    if (categories != null)
+        //    {
+        //        _context.Categories.Remove(categories);
+        //    }
+
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
     }
 }
