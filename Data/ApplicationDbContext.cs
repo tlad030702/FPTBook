@@ -66,7 +66,7 @@ namespace FPTBook.Data
                 LastName = "Bui Minh Duc",
                 Address = "Ha noi",
                 UserName = "Duc",
-                Email = "Staff@fpt.com",
+                Email = "Customer@fpt.com",
                 NormalizedUserName = "customer@fpt.com",
                 EmailConfirmed = true,
                 
@@ -79,7 +79,7 @@ namespace FPTBook.Data
                 LastName = "Toan Duc",
                 Address = "Ha noi",
                 UserName = "customer@fpt.com",
-                Email = "customer@fpt.com",
+                Email = "Staff@fpt.com",
                 NormalizedUserName = "Staff@fpt.com",
                 EmailConfirmed = true,
             };

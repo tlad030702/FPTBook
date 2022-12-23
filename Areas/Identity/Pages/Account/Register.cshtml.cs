@@ -88,18 +88,17 @@ namespace FPTBook.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                MailAddress address = new MailAddress(Input.Email);
-                string userName = address.User;
+                
                 var user = new ApplicationUser
                 {
-                    UserName = userName,
+                    UserName = Input.Email,
                     Email = Input.Email,
                     FirstName = Input.FirstName,
                     LastName = Input.LastName,
                     Address = Input.Address
                 };
-                //var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, FullName = Input.FullName, Address = Input.Address };
                 var result = await _userManager.CreateAsync(user, Input.Password);
+                //var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email, FullName = Input.FullName, Address = Input.Address };
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");

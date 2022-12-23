@@ -32,8 +32,7 @@ namespace FPTBook.Migrations
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -48,13 +47,11 @@ namespace FPTBook.Migrations
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -107,16 +104,16 @@ namespace FPTBook.Migrations
                             Id = "1",
                             AccessFailedCount = 0,
                             Address = "Ha noi",
-                            ConcurrencyStamp = "30cecc1d-3d85-4941-a274-ec1dafb63655",
+                            ConcurrencyStamp = "0646c227-41f4-47c9-8fd4-05ec45febbe0",
                             Email = "admin@fpt.com",
                             EmailConfirmed = true,
                             FirstName = "Tran",
                             LastName = "Duy Duong",
                             LockoutEnabled = false,
                             NormalizedUserName = "admin@fpt.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAENQiugCRGJLkVd8sHcIQLSofLZybNVTJEaaKxGb5lffpYwyRwk5Kh14pVqGU+IdzoQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEI5JszF3/311K3MEBGzIfnRn0Y+VMe7RNqToKjeRkr5YM7Qh5VRNi6/Y3PL+91x0ww==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "eac69053-bcb8-4cb6-88f8-94a8e0613a6a",
+                            SecurityStamp = "66a331b5-cfe7-4932-bc71-96665ad93935",
                             TwoFactorEnabled = false,
                             UserName = "admin@fpt.com"
                         },
@@ -125,16 +122,16 @@ namespace FPTBook.Migrations
                             Id = "2",
                             AccessFailedCount = 0,
                             Address = "Ha noi",
-                            ConcurrencyStamp = "0567754e-e0bd-4c20-8028-ae0d1579c5b6",
-                            Email = "Staff@fpt.com",
+                            ConcurrencyStamp = "388d27f8-77b4-472f-bbf4-76d40ea1f7f0",
+                            Email = "Customer@fpt.com",
                             EmailConfirmed = true,
                             FirstName = "Pham",
                             LastName = "Bui Minh Duc",
                             LockoutEnabled = false,
                             NormalizedUserName = "customer@fpt.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHSg9qBts3qGX6fzhG3VxOoolygehLbtEeYJzMoC7h+qA4zRg+lfkSTzL+FFx034/g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJEbevd//2LF44sl74GQsUseiixgGZC+VkKJn6sToKQnSBn9HZl8fsoKzF8aUN3m9A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "988f83d4-bd32-4e44-9ab7-99a3772021e6",
+                            SecurityStamp = "e3f997f7-1ce4-46b4-a518-fb5cebdde599",
                             TwoFactorEnabled = false,
                             UserName = "Duc"
                         },
@@ -143,16 +140,16 @@ namespace FPTBook.Migrations
                             Id = "3",
                             AccessFailedCount = 0,
                             Address = "Ha noi",
-                            ConcurrencyStamp = "2a75b16a-fb28-4ec6-984c-4063fd5fcfa9",
-                            Email = "customer@fpt.com",
+                            ConcurrencyStamp = "7f138f32-b7d9-44b8-b730-108e6c49449f",
+                            Email = "Staff@fpt.com",
                             EmailConfirmed = true,
                             FirstName = "Vuong",
                             LastName = "Toan Duc",
                             LockoutEnabled = false,
                             NormalizedUserName = "Staff@fpt.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEE5M+3CRjNproj5Gh++19Dggd8dp0k2mZ1ZON8cnBYAu/A6Yq4eeOu3wl2fH8UqGdA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENC8mSvmlLKjCOFb9x/+Cj1uhtkBg6shiDxewYqOcspOwv5TbPK+f5dHyxt2qx5k0w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f97634cf-8cf9-4fa3-bce7-b0a9694459cf",
+                            SecurityStamp = "916b4ccb-2037-4b53-849b-f782ddf2f73f",
                             TwoFactorEnabled = false,
                             UserName = "customer@fpt.com"
                         });
@@ -288,21 +285,21 @@ namespace FPTBook.Migrations
                         new
                         {
                             Id = "A",
-                            ConcurrencyStamp = "e6accf2f-e9b4-4f88-9f3e-0c7146f940d9",
+                            ConcurrencyStamp = "e6335eb7-8da6-4a9a-81f2-9ee9f698af85",
                             Name = "Administrator",
                             NormalizedName = "Administrator"
                         },
                         new
                         {
                             Id = "B",
-                            ConcurrencyStamp = "c28abc7a-a189-4997-ac9e-2a8dfe4717b9",
+                            ConcurrencyStamp = "098d0ecd-cbdb-47e7-bfb8-058d8600ec6e",
                             Name = "Customer",
                             NormalizedName = "Customer"
                         },
                         new
                         {
                             Id = "C",
-                            ConcurrencyStamp = "9fec9aca-93ec-4c97-81dd-153955b0d1bc",
+                            ConcurrencyStamp = "59432d81-987a-4532-afaf-454987bfc912",
                             Name = "Staff",
                             NormalizedName = "Staff"
                         });
