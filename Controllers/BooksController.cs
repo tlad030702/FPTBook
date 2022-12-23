@@ -14,7 +14,7 @@ using System.Data;
 
 namespace FPTBook.Controllers
 {
-    [Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "Administrator,Staff")]
     public class BooksController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -92,9 +92,6 @@ namespace FPTBook.Controllers
 
         public IActionResult Index(string searchString)
         {
-            //IQueryable<int> cateSearch = from c in _context.Books
-            //                             orderby c.CategoryId
-            //                             select c.CategoryId;
             var books = from a in _context.Books select a;
             //var book = _context.Books.ToList();
             var categories = _context.Categories.ToList();
@@ -104,16 +101,6 @@ namespace FPTBook.Controllers
                 books = books.Where(t => t.Title!.Contains(searchString));
             }
 
-            //var cate = from c in _context.Categories select c;
-            //if (searchCate != null)
-            //{
-            //    books = books.Where(c => c.CategoryId == searchCate);
-            //}
-            //var searchViewModel = new Search
-            //{
-            //    //Cates = new SelectList(cateSearch.Distinct().ToList()),
-            //    Books = books.ToList()
-            //};
             return View(books);
         }
 
@@ -221,10 +208,6 @@ namespace FPTBook.Controllers
             {
                 return NotFound();
             }
-            //if (id != book.BookId)
-            //{
-            //    return NotFound();
-            //}
 
             if (ModelState.IsValid)
             {

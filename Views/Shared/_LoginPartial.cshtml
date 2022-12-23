@@ -10,7 +10,7 @@
     @if (User.Identity.IsAuthenticated && User.IsInRole("Administrator"))
     {
         <li>
-            <a class="nav-link text-dark" asp-controller="Books" >Hello Admin!</a>
+            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index">Hello Admin!</a>
         </li>
     }
     else
@@ -18,7 +18,7 @@
         @if(User.Identity.IsAuthenticated && User.IsInRole("Staff"))
         {
             <li>
-                <a class="nav-link text-dark" asp-controller="Books">Hello staff!</a>
+                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index">Hello staff!</a>
             </li>
         }
         else

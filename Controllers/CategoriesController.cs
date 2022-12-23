@@ -8,9 +8,12 @@ using Microsoft.EntityFrameworkCore;
 using FPTBook.Data;
 using FPTBook.Models;
 using FPTBook.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FPTBook.Controllers
 {
+    [Authorize(Roles = "Administrator,Staff")]
+    [Route("[Controller]/[Action]")]
     public class CategoriesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -24,14 +27,12 @@ namespace FPTBook.Controllers
         public IActionResult Index(string searchString)
         {
             var cats = from c in _context.Categories select c;
-            //var book = _context.Books.ToList();
             var categories = _context.Categories.ToList();
             ViewBag.Categories = categories;
             if (!String.IsNullOrEmpty(searchString))
             {
                 cats = cats.Where(t => t.CategoryName!.Contains(searchString));
             }
-            //return View(await _context.Categories.ToListAsync());
             return View(cats);
         }
 
@@ -70,14 +71,26 @@ namespace FPTBook.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(CateViewModel cateViewModel)
         {
+            var categories2 = _context.Categories.ToList();
+            ViewBag.Categories = categories2;
+            cateViewModel.Status = "Pending...";
             if (ModelState.IsValid)
             {
+
                 Categories categories = new Categories
                 {
                     CategoryName = cateViewModel.CategoryName,
                     CategoryDescription = cateViewModel.CategoryDescription,
+                    Status = cateViewModel.Status,
+                };
+                RequestCate requestCate1 = new RequestCate
+                {
+                    Name = cateViewModel.CategoryName,
+                    Description = cateViewModel.CategoryDescription,
+                    Status = cateViewModel.Status,
                 };
                 _context.Categories.Add(categories);
+                _context.RequestCates.Add(requestCate1);
                 _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
@@ -98,6 +111,7 @@ namespace FPTBook.Controllers
             {
                 CategoryName = categories.CategoryName,
                 CategoryDescription = categories.CategoryDescription,
+                Status = categories.Status,
             };
             if (categories == null)
             {
@@ -113,17 +127,27 @@ namespace FPTBook.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, CateViewModel cateViewModel)
         {
-            //if (id != categories.CategoryId)
-            //{
-            //    return NotFound();
-            //}
-
+            var categories2 = _context.Categories.ToList();
+            ViewBag.Categories = categories2;
+            if (id != cateViewModel.Id)
+            {
+                return NotFound();
+            }
+            
             if (ModelState.IsValid)
             {
                 var categories = await _context.Categories.FindAsync(id);
                 categories.CategoryName = cateViewModel.CategoryName;
                 categories.CategoryDescription = cateViewModel.CategoryDescription;
+                categories.Status = cateViewModel.Status;
+
+                var request = await _context.RequestCates.FindAsync(id);
+                request.Name = cateViewModel.CategoryName;
+                request.Description = cateViewModel.CategoryDescription;
+                request.Status = cateViewModel.Status;
+
                 _context.Update(categories);
+                _context.Update(request);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
@@ -133,6 +157,8 @@ namespace FPTBook.Controllers
         // GET: Categories/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            var categoriesNav = await _context.Categories.ToListAsync();
+            ViewBag.Categories = categoriesNav;
             if (id == null || _context.Categories == null)
             {
                 return NotFound();
@@ -140,8 +166,7 @@ namespace FPTBook.Controllers
 
             var categories = await _context.Categories
                 .FirstOrDefaultAsync(m => m.CategoryId == id);
-            var categoriesNav = await _context.Categories.ToListAsync();
-            ViewBag.Categories = categoriesNav;
+            
             if (categories == null)
             {
                 return NotFound();

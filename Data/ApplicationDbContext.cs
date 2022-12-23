@@ -14,16 +14,21 @@ namespace FPTBook.Data
         }
         public DbSet<Categories> Categories { get; set; }
         public DbSet<Book> Books { get; set; }
+        public DbSet<RequestCate> RequestCates { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            builder.Entity<ApplicationUser>()
-               .Property(e => e.FullName)
-            .HasMaxLength(250);
+            //builder.Entity<ApplicationUser>()
+            //   .Property(e => e.FirstName)
+            //    .HasMaxLength(250);
 
-            builder.Entity<ApplicationUser>()
-                .Property(e => e.Address)
-                .HasMaxLength(250);
+            //builder.Entity<ApplicationUser>()
+            //   .Property(e => e.LastName)
+            //    .HasMaxLength(250);
+
+            //builder.Entity<ApplicationUser>()
+            //    .Property(e => e.Address)
+            //    .HasMaxLength(250);
 
             
 
@@ -37,13 +42,16 @@ namespace FPTBook.Data
             SeedUserRole(builder);
         }
 
+
+
         private void SeedUser(ModelBuilder builder)
         {
             //1. tạo tài khoản ban đầu để add vào DB
             var admin = new ApplicationUser
             { 
                 Id = "1",
-                FullName= "Duy Duong",
+                FirstName= "Tran",
+                LastName= "Duy Duong",
                 Address = "Ha noi",
                 UserName = "admin@fpt.com",
                 Email = "admin@fpt.com",
@@ -54,10 +62,11 @@ namespace FPTBook.Data
             var customer = new ApplicationUser
             {
                 Id = "2",
-                FullName = "Minh Duc",
+                FirstName = "Pham",
+                LastName = "Bui Minh Duc",
                 Address = "Ha noi",
-                UserName = "customer@fpt.com",
-                Email = "customer@fpt.com",
+                UserName = "Duc",
+                Email = "Staff@fpt.com",
                 NormalizedUserName = "customer@fpt.com",
                 EmailConfirmed = true,
                 
@@ -66,10 +75,11 @@ namespace FPTBook.Data
             var staff = new ApplicationUser
             {
                 Id = "3",
-                FullName = "Toan Duc",
+                FirstName = "Vuong",
+                LastName = "Toan Duc",
                 Address = "Ha noi",
-                UserName = "Staff@fpt.com",
-                Email = "Staff@fpt.com",
+                UserName = "customer@fpt.com",
+                Email = "customer@fpt.com",
                 NormalizedUserName = "Staff@fpt.com",
                 EmailConfirmed = true,
             };
@@ -125,6 +135,11 @@ namespace FPTBook.Data
                 {
                     UserId = "2",
                     RoleId = "B"
+                },
+                new IdentityUserRole<string>
+                {
+                    UserId = "3",
+                    RoleId = "C"
                 }
              );
         }

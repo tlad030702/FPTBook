@@ -21,8 +21,8 @@
         }
 
     }
-
 }
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,7 +57,11 @@
                         <ul>
                             @foreach(var item in categories)
                             {
-                                 <li><a asp-controller="Home" asp-action="IndexSearch" asp-route-id="@item.CategoryId">@item.CategoryName</a></li> 
+                                @if(item.Status == "Approve")
+                                {
+                                    <li><a asp-controller="Home" asp-action="IndexSearch" asp-route-id="@item.CategoryId">@item.CategoryName</a></li> 
+                                }
+                                 
                                 @*<li><form asp-controller="Home" asp-action="IndexSearch">
                                         <option value="@item.CategoryId">
                                             @item.CategoryName

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FPTBook.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221221194004_FPTBook")]
-    partial class FPTBook
+    [Migration("20221223114134_test")]
+    partial class test
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -24,7 +24,7 @@ namespace FPTBook.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("FPTBook.Data.ApplicationUser", b =>
+            modelBuilder.Entity("FPTBook.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -48,7 +48,12 @@ namespace FPTBook.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("FullName")
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
@@ -104,15 +109,16 @@ namespace FPTBook.Migrations
                             Id = "1",
                             AccessFailedCount = 0,
                             Address = "Ha noi",
-                            ConcurrencyStamp = "2ac31ab6-bc30-4ede-b1ae-bd91a97dd982",
+                            ConcurrencyStamp = "30cecc1d-3d85-4941-a274-ec1dafb63655",
                             Email = "admin@fpt.com",
                             EmailConfirmed = true,
-                            FullName = "Duy Duong",
+                            FirstName = "Tran",
+                            LastName = "Duy Duong",
                             LockoutEnabled = false,
                             NormalizedUserName = "admin@fpt.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAENKrTOY3gaqulhBfyiZCIoktPO4AgmRhVtUeeNQJX07/DlU0beelvkMAMHrmetY0yw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENQiugCRGJLkVd8sHcIQLSofLZybNVTJEaaKxGb5lffpYwyRwk5Kh14pVqGU+IdzoQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "624b6f0f-4c2b-46ac-a695-40628e484b65",
+                            SecurityStamp = "eac69053-bcb8-4cb6-88f8-94a8e0613a6a",
                             TwoFactorEnabled = false,
                             UserName = "admin@fpt.com"
                         },
@@ -121,34 +127,36 @@ namespace FPTBook.Migrations
                             Id = "2",
                             AccessFailedCount = 0,
                             Address = "Ha noi",
-                            ConcurrencyStamp = "5e831c85-49ab-4d57-bc97-cd187a9472da",
-                            Email = "customer@fpt.com",
+                            ConcurrencyStamp = "0567754e-e0bd-4c20-8028-ae0d1579c5b6",
+                            Email = "Staff@fpt.com",
                             EmailConfirmed = true,
-                            FullName = "Minh Duc",
+                            FirstName = "Pham",
+                            LastName = "Bui Minh Duc",
                             LockoutEnabled = false,
                             NormalizedUserName = "customer@fpt.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEFvyT2mOMPs+EfB+1FCdrgx5leY/dF+7CQHo0dpRYYBviYmddoJeRf3e6JOHVyJEg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHSg9qBts3qGX6fzhG3VxOoolygehLbtEeYJzMoC7h+qA4zRg+lfkSTzL+FFx034/g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9ed09ebb-025c-4dfa-a320-6458fda06b39",
+                            SecurityStamp = "988f83d4-bd32-4e44-9ab7-99a3772021e6",
                             TwoFactorEnabled = false,
-                            UserName = "customer@fpt.com"
+                            UserName = "Duc"
                         },
                         new
                         {
                             Id = "3",
                             AccessFailedCount = 0,
                             Address = "Ha noi",
-                            ConcurrencyStamp = "135a98bc-e812-48ea-a79b-62b8cb424c3f",
-                            Email = "Staff@fpt.com",
+                            ConcurrencyStamp = "2a75b16a-fb28-4ec6-984c-4063fd5fcfa9",
+                            Email = "customer@fpt.com",
                             EmailConfirmed = true,
-                            FullName = "Toan Duc",
+                            FirstName = "Vuong",
+                            LastName = "Toan Duc",
                             LockoutEnabled = false,
                             NormalizedUserName = "Staff@fpt.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKZFnDj6idB3SQCe/WfxXIBJVyAa1D937g/v+TrWx0qw1+GB19fGmmZjbXtEtt/P8A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEE5M+3CRjNproj5Gh++19Dggd8dp0k2mZ1ZON8cnBYAu/A6Yq4eeOu3wl2fH8UqGdA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "27b02cb3-4285-4074-8570-0b6332bdd212",
+                            SecurityStamp = "f97634cf-8cf9-4fa3-bce7-b0a9694459cf",
                             TwoFactorEnabled = false,
-                            UserName = "Staff@fpt.com"
+                            UserName = "customer@fpt.com"
                         });
                 });
 
@@ -186,9 +194,8 @@ namespace FPTBook.Migrations
                     b.Property<int>("Rate")
                         .HasColumnType("int");
 
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int?>("RequestCateId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -197,6 +204,8 @@ namespace FPTBook.Migrations
                     b.HasKey("BookId");
 
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("RequestCateId");
 
                     b.ToTable("Books");
                 });
@@ -211,10 +220,13 @@ namespace FPTBook.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CategoryId"), 1L, 1);
 
                     b.Property<string>("CategoryDescription")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -223,7 +235,7 @@ namespace FPTBook.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("FPTBook.Models.RequestBook", b =>
+            modelBuilder.Entity("FPTBook.Models.RequestCate", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -231,39 +243,21 @@ namespace FPTBook.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int")
-                        .HasColumnName("CategoryId");
-
-                    b.Property<string>("Img1")
+                    b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Img2")
+                    b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Img3")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("Quality")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Rate")
-                        .HasColumnType("int");
 
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
-                    b.ToTable("RequestBooks");
+                    b.ToTable("RequestCates");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -296,21 +290,21 @@ namespace FPTBook.Migrations
                         new
                         {
                             Id = "A",
-                            ConcurrencyStamp = "a7f1d279-15ff-4466-b4b3-bb4806387bec",
+                            ConcurrencyStamp = "e6accf2f-e9b4-4f88-9f3e-0c7146f940d9",
                             Name = "Administrator",
                             NormalizedName = "Administrator"
                         },
                         new
                         {
                             Id = "B",
-                            ConcurrencyStamp = "6951be11-d519-4594-adf1-aae2032bc7e6",
+                            ConcurrencyStamp = "c28abc7a-a189-4997-ac9e-2a8dfe4717b9",
                             Name = "Customer",
                             NormalizedName = "Customer"
                         },
                         new
                         {
                             Id = "C",
-                            ConcurrencyStamp = "d57d6eaa-9dbe-4c73-a05f-be9b37fad93e",
+                            ConcurrencyStamp = "9fec9aca-93ec-4c97-81dd-153955b0d1bc",
                             Name = "Staff",
                             NormalizedName = "Staff"
                         });
@@ -414,6 +408,11 @@ namespace FPTBook.Migrations
                         {
                             UserId = "2",
                             RoleId = "B"
+                        },
+                        new
+                        {
+                            UserId = "3",
+                            RoleId = "C"
                         });
                 });
 
@@ -446,6 +445,10 @@ namespace FPTBook.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("FPTBook.Models.RequestCate", null)
+                        .WithMany("Books")
+                        .HasForeignKey("RequestCateId");
+
                     b.Navigation("Categories");
                 });
 
@@ -460,7 +463,7 @@ namespace FPTBook.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("FPTBook.Data.ApplicationUser", null)
+                    b.HasOne("FPTBook.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -469,7 +472,7 @@ namespace FPTBook.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("FPTBook.Data.ApplicationUser", null)
+                    b.HasOne("FPTBook.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -484,7 +487,7 @@ namespace FPTBook.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FPTBook.Data.ApplicationUser", null)
+                    b.HasOne("FPTBook.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -493,7 +496,7 @@ namespace FPTBook.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("FPTBook.Data.ApplicationUser", null)
+                    b.HasOne("FPTBook.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -501,6 +504,11 @@ namespace FPTBook.Migrations
                 });
 
             modelBuilder.Entity("FPTBook.Models.Categories", b =>
+                {
+                    b.Navigation("Books");
+                });
+
+            modelBuilder.Entity("FPTBook.Models.RequestCate", b =>
                 {
                     b.Navigation("Books");
                 });

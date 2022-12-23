@@ -58,6 +58,24 @@
                                             </div>
                                             <hr />
                                             <div class="form-group">
+                                                <label asp-for="Input.FirstName"></label>
+                                                <input asp-for="Input.FirstName" class="form-control" />
+                                                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                                            </div>
+                                            <hr />
+                                            <div class="form-group">
+                                                <label asp-for="Input.LastName"></label>
+                                                <input asp-for="Input.LastName" class="form-control" />
+                                                <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                                            </div>
+                                            <hr />
+                                            <div class="form-group">
+                                                <label asp-for="Input.Address"></label>
+                                                <input asp-for="Input.Address" class="form-control" />
+                                                <span asp-validation-for="Input.Address" class="text-danger"></span>
+                                            </div>
+                                            <hr />
+                                            <div class="form-group">
                                                 <label asp-for="Input.Password"></label>
                                                 <input asp-for="Input.Password" class="form-control" />
                                                 <span asp-validation-for="Input.Password" class="text-danger"></span>
@@ -67,19 +85,6 @@
                                                 <label asp-for="Input.ConfirmPassword"></label>
                                                 <input asp-for="Input.ConfirmPassword" class="form-control" />
                                                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-                                            </div>
-
-                                            <hr />
-                                            <div class="form-group">
-                                                <label asp-for="Input.FullName"></label>
-                                                <input asp-for="Input.FullName" class="form-control" />
-
-                                            </div>
-                                            <hr />
-                                            <div class="form-group">
-                                                <label asp-for="Input.Address"></label>
-                                                <input asp-for="Input.Address" class="form-control" />
-
                                             </div>
                                             <hr />
                                             <button type="submit" class="btn btn-primary">Đăng ký</button>

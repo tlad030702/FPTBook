@@ -89,10 +89,10 @@
     font-size: 15px;
 }
 
-.contact .php-email-form input:focus,
+/*.contact .php-email-form input:focus,
 .contact .php-email-form textarea:focus {
     background-color: var(--color-primary);
-}
+}*/
 
 .contact .php-email-form button[type=submit] {
     background: var(--color-primary);
@@ -105,4 +105,8 @@
 
 .contact .php-email-form button[type=submit]:hover {
     background: rgba(var(--color-primary-rgb), 0.8);
+}
+
+.form-control:focus{
+    background-color:white;
 }
