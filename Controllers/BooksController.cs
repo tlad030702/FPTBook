@@ -104,7 +104,7 @@ namespace FPTBook.Controllers
             return View(books);
         }
 
-        // GET: Books/Details/5
+        // GET: Books/Details/id
 
         public async Task<IActionResult> Details(int? id)
         {
@@ -135,8 +135,6 @@ namespace FPTBook.Controllers
         }
 
         // POST: Books/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(BookViewModel model)
@@ -166,7 +164,7 @@ namespace FPTBook.Controllers
             return View(model);
         }
 
-        // GET: Books/Edit/5
+        // GET: Books/Edit/id
        
         public async Task<IActionResult> Edit(int? id)
         {
@@ -196,9 +194,7 @@ namespace FPTBook.Controllers
             return View(bookViewModel);
         }
 
-        // POST: Books/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Books/Edit/id
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, BookViewModel bookViewModel)
@@ -270,7 +266,7 @@ namespace FPTBook.Controllers
             return View();
         }
 
-        // GET: Books/Delete/5
+        // GET: Books/Delete/id
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Books == null)
@@ -302,7 +298,7 @@ namespace FPTBook.Controllers
             return View(book);
         }
 
-        // POST: Books/Delete/5
+        // POST: Books/Delete/id
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

@@ -36,7 +36,7 @@ namespace FPTBook.Controllers
             return View(cats);
         }
 
-        // GET: Categories/Details/5
+        // GET: Categories/Details/id
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Categories == null)
@@ -65,8 +65,6 @@ namespace FPTBook.Controllers
         }
 
         // POST: Categories/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Create(CateViewModel cateViewModel)
@@ -97,7 +95,7 @@ namespace FPTBook.Controllers
             return View(cateViewModel);
         }
 
-        // GET: Categories/Edit/5
+        // GET: Categories/Edit/id
         public async Task<IActionResult> Edit(int? id)
         {
             var categories1 = await _context.Categories.ToListAsync();
@@ -120,9 +118,7 @@ namespace FPTBook.Controllers
             return View(cateViewModel);
         }
 
-        // POST: Categories/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Categories/Edit/id
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, CateViewModel cateViewModel)
@@ -154,7 +150,7 @@ namespace FPTBook.Controllers
             return View(cateViewModel);
         }
 
-        // GET: Categories/Delete/5
+        // GET: Categories/Delete/id
         public async Task<IActionResult> Delete(int? id)
         {
             var categoriesNav = await _context.Categories.ToListAsync();
@@ -175,7 +171,7 @@ namespace FPTBook.Controllers
             return View(categories);
         }
 
-        // POST: Categories/Delete/5
+        // POST: Categories/Delete/id
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

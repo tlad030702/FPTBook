@@ -9,7 +9,6 @@
 @{
     var categories = ViewBag.Categories;
 }
-
 <main id="main"> 
     <div class="card card-body">
         <div class="row">
@@ -98,7 +97,7 @@
                                 {
                                     if (ViewBag.Categories[i].CategoryId == item.CategoryId)
                                     {
-                                    <p>@ViewBag.Categories[i].CategoryName</p>
+                                        <p>@ViewBag.Categories[i].CategoryName</p>
                                     }
                                 }
                         </td>
