@@ -77,9 +77,11 @@
                                         <div>
                                             <p class="small text-muted mb-4 pb-2">Action</p>
                                             <div class="btn-group">
-                                                @*<a href="" data-id="@item.Book.BookId" class="updateCart">*@
-                                                  <a asp-controller="Home" asp-action="h0ld0n" asp-route-id="@item.Book.BookId">  
-                                                <button class="btn btn-warning">Update</button>
+                                                <a asp-controller="Home" asp-action="h0ld0nAdd" asp-route-id="@item.Book.BookId">  
+                                                    <button class="btn btn-warning">+</button>
+                                                </a>
+                                                <a asp-controller="Home" asp-action="h0ld0nMinus" asp-route-id="@item.Book.BookId">
+                                                    <button class="btn btn-warning">-</button>
                                                 </a>
                                                 <a asp-controller="Home" asp-action="deleteCart" asp-route-id="@item.Book.BookId" class="btn btn-danger">Delete</a>
                                             </div>                                          

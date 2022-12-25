@@ -158,7 +158,7 @@ namespace FPTBook.Controllers
             return RedirectToAction(nameof(Index));
 
         }
-        public IActionResult h0ld0n(int id)
+        public IActionResult h0ld0nAdd(int id)
         {
             var cart = HttpContext.Session.GetString("cart");//get key cart
             if (cart == null)
@@ -200,6 +200,25 @@ namespace FPTBook.Controllers
 
             return Redirect("/Home/ListCart");
 
+        }
+        public IActionResult h0ld0nMinus(int id)
+        {
+            var cart = HttpContext.Session.GetString("cart");//get key cart
+            List<Cart> dataCart = JsonConvert.DeserializeObject<List<Cart>>(cart);
+            
+            for (int i = 0; i < dataCart.Count; i++)
+            {
+                if (dataCart[i].Book.BookId == id)
+                {
+                    dataCart[i].Quantity--;
+                    if(dataCart[i].Quantity == 0)
+                    {
+                        dataCart.RemoveAt(i);
+                    }
+                }
+            }
+            HttpContext.Session.SetString("cart", JsonConvert.SerializeObject(dataCart));
+            return Redirect("/Home/ListCart");
         }
 
         public async Task<IActionResult> ListCart()
