@@ -198,7 +198,6 @@ namespace FPTBook.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, BookViewModel bookViewModel)
-        //public async Task<IActionResult> Edit(int id, [Bind("BookId,Title,Price,Rate,Img1,Img2,Img3,Quality,CategoryId")] Book book)
         {
             if (id != bookViewModel.Id)
             {
